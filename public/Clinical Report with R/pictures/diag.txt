@@ -1,0 +1,22 @@
+## The whole procedure
+
+```{r}
+DiagrammeR::grViz("
+digraph boxes_and_circles {
+
+  # a 'graph' statement
+  graph [overlap = true, fontsize = 10]
+
+  # several 'node' statements
+  node [shape = box,
+        fontname = Helvetica]
+  rec1 [label = 'Step 1. Mock shell as template with options in yaml header']
+  rec2 [label = 'Step 2. Tidyverse R code for statistical analysis']
+  rec3 [label = 'Step 3. Customize LaTex table with kabelExtra package']
+  rec4 [label = 'Step 4. Knit to PDF document']
+
+  # several 'edge' statements
+  rec1 -> rec2 -> rec3 -> rec4
+}
+")
+```

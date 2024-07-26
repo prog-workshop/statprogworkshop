@@ -1,0 +1,66 @@
+---
+format: 
+  revealjs:
+    smaller: true
+    scrollable: true
+    logo: footlogo.png
+---
+
+
+
+<style>
+
+.intro {
+  margin-top: 180px;
+  text-align: center;
+  background: linear-gradient(to right, #FBD17C , #E85811);
+}
+
+
+</style>
+
+<p><img data-src="biglogo.png" class="absolute" style="top: 0px; left: 380px; width: 300px; "></p>
+
+<div class="intro">
+  
+  <h1> <span style="font-size: 50px; color:#002060; ">Clinical Report in another language than SAS </span> </h1>
+  
+  <h2> <span style="font-size: 30px; color:#002060;">R for TLG </span></h2>
+  
+</div>
+
+<center>
+  <hr>
+  
+  <h3> <span style="font-size: 20px;">Tao Xiang </span></h3>
+  
+  <h3> <span style="font-size: 20px;">2023-12-12 </span></h3>
+
+</center>
+
+
+## Code
+
+When you click the **Render** button a presentation will be generated that includes both content and the output of embedded code. You can embed code like this:
+
+```{r}
+1 + 1
+```
+
+---
+
+<style>
+
+.end {
+  margin-top: 120px;
+  text-align: center;
+}
+
+</style>
+
+<div class="end">
+  <h1> <span style="font-size: 100px; font-family:Agency FB; color: #FF6600"> Thanks </span></h2>
+</div>
+
+<p><img data-src="endlogo.png" class="absolute" style="top: 300px; left: 380px; width: 300px; "></p>
+

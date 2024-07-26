@@ -1,0 +1,15 @@
+---
+title: "Sample RMD"
+date: 2022-02-22
+output: pdf_document
+---
+
+Any plain text here.
+
+```{r include = FALSE}
+library(ggplot2)
+
+diamonds %>% 
+  ggplot(aes(carat)) + 
+  geom_freqpoly(binwidth = 0.01)
+```
