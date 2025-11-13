@@ -36,37 +36,30 @@ pre {
 
 ### 📔 Workshop Schedules
 
--   [**Year 2025**]{style="color:#E85811"}
-
-| Topics                                                                             | Lecturer  | Date       |
-|-----------------------------------|-------------------|-------------------|
-| Pending...                                                                         | Tao Xiang | 2025-12    |
-| [Introduction to R programming](Introduction%20to%20R%20Programming/template.html) | Tao Xiang | 2025-11-28 |
-
 -   [**Year 2024**]{style="color:#E85811"}
 
-| Topics                                                                                                                                                                    | Lecturer      | Date       |
-|-----------------------------------|-------------------|-------------------|
-| SAS Macro for comparing RTF                                                                                                                                               | Sachiel Li    | 2024-05-09 |
-| SAS Macro for comparing RTF Updated                                                                                                                                       | Sachiel Li    | 2024-05-23 |
-| [Define by P21](https://innocarepharma-my.sharepoint.cn/:p:/g/personal/tao_xiang_innocarepharma_com/Ea0UYCBFN1hErDALSGGwp3QBr3AujmroIZySXj4oZw9o-A?e=T8hUgr)              | Rolland Luo   | 2024-06-05 |
-| [AE Narrative Tools Sharing](https://innocarepharma-my.sharepoint.cn/:p:/g/personal/tao_xiang_innocarepharma_com/EY0jf3L9L8hDtjK8Y_ajoBkB-cEvgJGW24fiUoWLX7rz1g?e=r7pmdw) | Junjie Lang   | 2024-06-12 |
-| [Clinical Reports with R](Clinical%20Report%20with%20R/Clinical_Report_With_R.html)                                                                                       | Tao Xiang     | 2024-07-26 |
-| Figure Library - Spider Plot                                                                                                                                              | Jie Wang      | 2024-08-30 |
-| R Basics                                                                                                                                                                  | Tao Xiang     | TBD        |
-| Figure Library - PK Concentration Plot                                                                                                                                    | Binhan Chen   | 2024-10    |
-| P21 Validation rules Discussion                                                                                                                                           | Menglian Ding | 2024-11    |
-| Efficiency tools introduction                                                                                                                                             | Junjie Lang   | 2024-12    |
+| Topics                                 | Lecturer      | Date       |
+|----------------------------------------|---------------|------------|
+| SAS Macro for comparing RTF            | Sachiel Li    | 2024-05-09 |
+| SAS Macro for comparing RTF Updated    | Sachiel Li    | 2024-05-23 |
+| [Define by P21](https://innocarepharma-my.sharepoint.cn/:p:/g/personal/tao_xiang_innocarepharma_com/Ea0UYCBFN1hErDALSGGwp3QBr3AujmroIZySXj4oZw9o-A?e=T8hUgr)                          | Rolland Luo   | 2024-06-05 |
+| AE Narrative Tools Sharing             | Junjie Lang   | 2024-06-12 |
+| [Clinical Reports with R](Clinical_Report_With_R.html)                | Tao Xiang     | 2024-07-26    |
+| Figure Library - Spider Plot           | Jie Wang      | 2024-08-30    |
+| R Basics                               | Tao Xiang     | 2024-09    |
+| Figure Library - PK Concentration Plot | Binhan Chen   | 2024-10    |
+| P21 Validation rules Discussion        | Menglian Ding | 2024-11    |
+| Efficiency tools introduction          | Junjie Lang   | 2024-12    |
 
 -   [**Year 2023**]{style="color:#E85811"}
 
-| Topics                                                                                                                                                                                       | Lecturer    | Date       |
-|-----------------------------------|-------------------|-------------------|
+| Topics                                 | Lecturer      | Date       |
+|----------------------------------------|---------------|------------|
 | [Introduction to SAS Graphic Template Language](https://innocarepharma-my.sharepoint.cn/:p:/g/personal/tao_xiang_innocarepharma_com/EdqBtZIM0wVIu9_Yys84Nc0B6vKNwcQWBGaqzs_oCDJ3RA?e=3TI2bi) | Tao Xiang   | 2023-09-28 |
-| GTL Swimmer Plot                                                                                                                                                                             | Jie Wang    | 2023-11-20 |
+| GTL Swimmer Plot  | Jie Wang    | 2023-11-20 |
 | [Forest Plot with GTL](https://innocarepharma-my.sharepoint.cn/:p:/g/personal/tao_xiang_innocarepharma_com/EWNbQ1h3ghZPnQPskypD0skB9g44BvEeLbZLKK2J4cNkww?e=qK7t5N)                          | Rolland Luo | 2023-12-14 |
 | [K-M Curve Plot with GTL](https://innocarepharma-my.sharepoint.cn/:p:/g/personal/tao_xiang_innocarepharma_com/ESbYSkBBe-hDjgG7c3L6zUgBOA0lB_D1p-eMgCvbVbdQEA?e=6VTEMw)                       | Binhan Chen | 2023-12-28 |
-| DILI - Time course plot                                                                                                                                                                      | Sachiel Li  | 2024-01-04 |
+| DILI - Time course plot | Sachiel Li  | 2024-01-04 |
 
 ### 🎥 Recordings
 
@@ -86,6 +79,6 @@ pre {
 
 -   [2024-06-12_AE Narrative](https://innocarepharma-my.sharepoint.cn/:v:/g/personal/tao_xiang_innocarepharma_com/EbKcPaakBd5KrYCEgXGF-HwB1Og5Ee8jYq8gEvRANMk2XQ?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=O1DqaD)
 
--   [2024-07-26_Clinical Report with R](https://innocarepharma-my.sharepoint.cn/:v:/g/personal/tao_xiang_innocarepharma_com/Eb1IqTQF7nZGrPteKfIhamcBMDhq4dSTfYdlVjsBLLzHrg?e=aKOk0D)
+-   [2024-07-26_Clinical Report with R](https://innocarepharma-my.sharepoint.cn/:v:/g/personal/tao_xiang_innocarepharma_com/Eb1IqTQF7nZGrPteKfIhamcBMDhq4dSTfYdlVjsBLLzHrg?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=2fKZeg)
 
 -   [2024-08-30_GTL Spider Plot](https://innocarepharma-my.sharepoint.cn/:v:/g/personal/tao_xiang_innocarepharma_com/ETyuFz8MSR5OpzRoa0b4PckB1aVXJk9F80Aviw6pxdiNuw?referrer=Teams.TEAMS-ELECTRON&referrerScenario=MeetingChicletGetLink.view.view)
