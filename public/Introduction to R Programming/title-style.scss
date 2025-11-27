@@ -1,0 +1,110 @@
+/*-- scss:defaults --*/
+$presentation-h1-font-size: 4.0em;
+$primary-color: #0b0f78;    
+$accent-color:  #e45a00;    
+$line-color:    #ff6600;   
+
+/*-- scss:rules --*/
+.reveal .end-slide h1{
+  text-align: center;
+  margin-bottom: 240px;
+  color: #FF6600;
+  font-size: $presentation-h1-font-size;
+  font-family:Agency FB;
+}
+
+.reveal section h2:not(.origin-title) {
+  font-size: 2.4em;
+  font-weight: 800;
+  color: $primary-color;
+  letter-spacing: 2px;
+  margin-bottom: 25px;
+  padding-left: 20px;
+  position: relative;
+  
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;      
+    bottom: 0;        
+    width: 8px;
+    background-color: $accent-color;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 40px;
+    width: 60%;
+    height: 3px;
+    background-color: $line-color;
+  }
+}
+
+.origin-title {
+  all: revert;
+  font-size: revert;
+  font-weight: revert;
+  margin: revert;
+  padding: revert;
+}
+
+.appendix-title-container {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 60px 1fr; /* 左侧留白，右侧自适应 */
+  align-items: center;
+  
+  // 添加背景图片
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('./assets/header-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -1; // 确保背景在内容后面
+    opacity: 0.7; // 调整背景透明度
+  }
+}
+
+.appendix-title {
+  position: relative;
+  padding: 18px 40px;
+  font-size: 2.6em;
+  font-weight: 800;
+  color: #002060;                    /* 与 h2 主色保持一致 */
+  background: rgba(255,255,255,0.55);/* 微透明底增强层次 */
+  backdrop-filter: blur(3px);        /* 玻璃柔化质感(可删) */
+  border-radius: 6px;
+  line-height: 1.05;
+  margin-left: 0;                 /* 让竖条与标题保持更优距离 */
+   grid-column: 2;
+}
+
+/* 左侧竖条 — 更细，稍优雅 */
+.appendix-title::before {
+  content: "";
+  position: absolute;
+  left: -45px;
+  top: 0; 
+  bottom: 0;
+  width: 28px;                       /* 已缩细 */
+  background: #f26c4f;
+  border-radius: 3px;
+}
+
+/* 可选：微交互（可去掉） */
+.appendix-title {
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+.appendix-title:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+}

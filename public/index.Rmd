@@ -32,21 +32,21 @@ pre {
 
 ------------------------------------------------------------------------
 
-## Schedules & Recordings {.tabset .tabset-fade .tabset-pills}
+## Schedules & Recordings & Books {.tabset .tabset-fade .tabset-pills}
 
 ### 📔 Workshop Schedules
 
 -   [**Year 2025**]{style="color:#E85811"}
 
-| Topics                                                                             | Lecturer  | Date       |
-|-----------------------------------|-------------------|-------------------|
-| Pending...                                                                         | Tao Xiang | 2025-12    |
-| [Introduction to R programming](Introduction%20to%20R%20Programming/template.html) | Tao Xiang | 2025-11-28 |
+| Topics                                                                                 | Lecturer  | Date       |
+|----------------------------------|-------------------|-------------------|
+| Pending...                                                                             | Tao Xiang | 2025-12    |
+| [Introduction to R programming](Introduction%20to%20R%20Programming/Intro_R_prog.html) | Tao Xiang | 2025-11-28 |
 
 -   [**Year 2024**]{style="color:#E85811"}
 
 | Topics                                                                                                                                                                    | Lecturer      | Date       |
-|-----------------------------------|-------------------|-------------------|
+|----------------------------------|-------------------|-------------------|
 | SAS Macro for comparing RTF                                                                                                                                               | Sachiel Li    | 2024-05-09 |
 | SAS Macro for comparing RTF Updated                                                                                                                                       | Sachiel Li    | 2024-05-23 |
 | [Define by P21](https://innocarepharma-my.sharepoint.cn/:p:/g/personal/tao_xiang_innocarepharma_com/Ea0UYCBFN1hErDALSGGwp3QBr3AujmroIZySXj4oZw9o-A?e=T8hUgr)              | Rolland Luo   | 2024-06-05 |
@@ -61,7 +61,7 @@ pre {
 -   [**Year 2023**]{style="color:#E85811"}
 
 | Topics                                                                                                                                                                                       | Lecturer    | Date       |
-|-----------------------------------|-------------------|-------------------|
+|----------------------------------|-------------------|-------------------|
 | [Introduction to SAS Graphic Template Language](https://innocarepharma-my.sharepoint.cn/:p:/g/personal/tao_xiang_innocarepharma_com/EdqBtZIM0wVIu9_Yys84Nc0B6vKNwcQWBGaqzs_oCDJ3RA?e=3TI2bi) | Tao Xiang   | 2023-09-28 |
 | GTL Swimmer Plot                                                                                                                                                                             | Jie Wang    | 2023-11-20 |
 | [Forest Plot with GTL](https://innocarepharma-my.sharepoint.cn/:p:/g/personal/tao_xiang_innocarepharma_com/EWNbQ1h3ghZPnQPskypD0skB9g44BvEeLbZLKK2J4cNkww?e=qK7t5N)                          | Rolland Luo | 2023-12-14 |
@@ -89,3 +89,49 @@ pre {
 -   [2024-07-26_Clinical Report with R](https://innocarepharma-my.sharepoint.cn/:v:/g/personal/tao_xiang_innocarepharma_com/Eb1IqTQF7nZGrPteKfIhamcBMDhq4dSTfYdlVjsBLLzHrg?e=aKOk0D)
 
 -   [2024-08-30_GTL Spider Plot](https://innocarepharma-my.sharepoint.cn/:v:/g/personal/tao_xiang_innocarepharma_com/ETyuFz8MSR5OpzRoa0b4PckB1aVXJk9F80Aviw6pxdiNuw?referrer=Teams.TEAMS-ELECTRON&referrerScenario=MeetingChicletGetLink.view.view)
+
+### 📖 R Books
+
+**Welcome :)** Here is my personal selection of R Books📕, basically those are free with online version. Hope you can find some useful.
+
+-   [R for Data Science](https://r4ds.had.co.nz/)
+
+    -   This book is kind of essential book which you [absolutely have to read]{style="color:red"} if you really want to do something with R in our daily data analysis. The author Hadley which is the most influencial R developer in modern era. I probably read couple of times of this book, especially some of chapters. You will built the whole scope of `tidyverse` and find an elegant way to programming with R in work.
+
+-   [R Manuals :: An Introduction to R](https://rstudio.github.io/r-manuals/r-intro/)
+
+    -   Not a book but an official R manuals for you to learn basics. Cran also have authoritative R manual but I feel that is obscure and treat this RStudio one a better version.
+
+-   [R Graphics Cookbook, 2nd edition](https://r-graphics.org/)
+
+-   [ggplot2: Elegant Graphics for Data Analysis (3e)](https://ggplot2-book.org/)
+
+    -   If you want to draw figures that you cannot avoid using `ggplot2` in R which is an mastering piece of grid system for R graphics. These two books will give you tutorial about applying `ggplot2`. As long as you learn, you will cook ggplot with R.
+
+-   [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/)
+
+-   [R Markdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/)
+
+    -   These two books can give the insight of `rmarkdown` with bunches of details. Try to write an report, website and slides with `rmarkdown` and will find this swiss army knife is so powerful and can meet most of your requirements in works. Bet you will be a fan of it.
+
+-   [Mastering Shiny](https://mastering-shiny.org/)
+
+    -   Shiny is a framework for creating web applications using R code. This book is one of piece from Hadley which I think is essetinal for elementary level to R Shiny.
+
+-   [Engineering Production-Grade Shiny Apps](https://engineering-shiny.org/index.html)
+
+    -   After you developed one or two more shiny apps to work, and start to fancy making useful apps from this framework, you may read this books to understand how to make an industrial level shiny app.
+
+-   [R Packages (2e)](https://r-pkgs.org/)
+
+    -   When your R skills have been improved and acquire enough knowledge of functional programming, you may get interested in build your own R package. This book is recommended for you to know the whole game.
+
+-   [SAS and R](https://bayer-group.github.io/sas2r/)
+
+    -   This book was authored by Bayer Oncology SBU, which is friendly to those R learner transferred from SAS and dedicated to pharma industry (that's us).
+
+-   [Reproducible Medical Research with R](https://bookdown.org/pdr_higgins/rmrwr/)
+
+    -   This is a book for anyone in the medical field interested in analyzing the data available to them to better understand health, disease, or the delivery of care. I read some and find some chapters about statistical analysis in R for medical research is suit for us. Try if you are interested.
+
+-   More books and resources for R programming will be posted...

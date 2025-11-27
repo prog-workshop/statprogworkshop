@@ -1,0 +1,29 @@
+---
+title: Introduction of R Programming
+subtitle: IDE and Basics
+author: Tao Xiang
+date: 2025-11-30
+format: 
+  revealjs:
+    theme: [default, ending.scss]
+    smaller: true
+    scrollable: true
+    chalkboard: true
+    logo: assets/footlogo.png
+    include-in-header:
+      - text: |
+          <script src="highlight.pack.js"></script>
+          <script>hljs.initHighlightingOnLoad();</script>
+    css: styles/vs.css
+    template-partials:
+        - revealjs-assets/title-slide.html
+revealjs-plugins:
+  - pointer
+execute: 
+  echo: true
+  eval: false
+---
+
+# 来早了，正在写🙇
+
+-   努力码字中。。。

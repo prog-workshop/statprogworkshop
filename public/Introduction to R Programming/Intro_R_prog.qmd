@@ -1,0 +1,1102 @@
+---
+title: Introduction to R Programming
+subtitle: IDE and Basics
+author: Tao Xiang
+date: 2025-11-28
+format: 
+  revealjs:
+    theme: [default, title-style.scss]
+    smaller: true
+    scrollable: true
+    chalkboard: true
+    logo: assets/footlogo.png
+    include-in-header:
+      - text: |
+          <script src="highlight.pack.js"></script>
+          <script>hljs.initHighlightingOnLoad();</script>
+    css: styles/vs.css
+    template-partials:
+        - revealjs-assets/title-slide.html
+revealjs-plugins:
+  - pointer
+execute: 
+  echo: true
+  eval: false
+---
+
+## Outline
+
+-   Installing Base-R and those IDEs
+
+-   Packages
+
+-   Some R Basics
+
+-   Data import/export in R
+
+---
+
+<div class="appendix-title-container">
+  <div class="appendix-title">Installing Base-R and those IDEs</div>
+</div>
+
+
+
+## First time to install Base-R
+
+-   If windows, [there you go](https://cran.r-project.org/bin/windows/base/)
+
+    -   Open R, you can see GUI as:
+
+    -   ![](imgs/Rgui.png){width="50%"}
+
+-   If Mac OS, [there you go](https://cran.r-project.org/bin/macosx/)
+
+## Install RStudio
+
+![](imgs/RStudio.png){width="120"}
+
+After installed Base-R, we can download RStudio from <https://posit.co/download/rstudio-desktop/>
+
+## Some of the functionality that RStudio provides
+
+::: {.fragment .custom .blur}
+-   Access RStudio locally.
+-   Syntax highlighting, code completion, and smart indentation.
+-   Execute R code directly from the source editor.
+-   Quickly jump to function definitions.
+-   View content changes in real-time with the Visual Markdown Editor for RMarkdown or Quarto documents.
+-   Easily manage multiple working directories using Projects.
+-   Integrated R help and documentation.
+-   View Python data, publish and render in Python and share objects with R.
+-   Interactive debugger to diagnose and fix errors.
+-   Extensive package development tools.
+-   Easily publish apps and reports.
+:::
+
+## Classic for RStudio Windows
+
+![The four panes of RStudio](imgs/rstudio-panes-labeled.jpeg)
+
+## Source Pane
+
+-   Source Pan is the place where you write your R Scripts with ".R" extention
+
+-   Good Naming is low case for scripting name and upper case for extention, eg. "km_plot.R"
+
+-   Don't worry if RStudio crashes, R will have your code waiting as unsaved status for you when you re-open RStudio.
+
+## R Kernal in Console
+
+-   R actually evaluate code in R Console with character prompt `>`.
+
+-   R Console in RStudio have code completion features.
+
+-   Your workspace is showed on top left of Console.
+
+-   Your code in Console will not be saved, develop your R code in Source Pane and press `Control + Enter` on windows to source in Console
+
+```{r}
+#| echo: true
+#| eval: true
+1 + 1
+```
+
+## Environment and History Tab
+
+-   The Environment tab of this panel shows you the names of all the data objects (like vectors, matrices, and dataframes) that you’ve defined in your current R session.
+
+-   The History tab of this panel simply shows you a history of all the code you’ve previously evaluated in the Console. You can select history code to re-send to console.
+
+-   Most your daily programming object are reflected in Global Environment, but `R Environment` is an advanced topic which we will not dive deep into today.
+
+## Output Pane
+
+::: incremental
+-   **Files** - The files panel gives you access to the file directory on your hard drive.
+
+-   **Plots** - The Plots panel give you access to view the output plot in R session each time when you use R graphic system like grid, ggplot2, etc.
+
+-   **Packages pane** give you access to the packages installed in your computer under this R version.
+
+-   **Help menu** will show your information about packaged functions in search window.
+
+-   **Viewer** is a pane to display html widget outputs
+
+-   Some other panels may exist depending on your RStudio version and installed extention such as Presentation/Git.
+:::
+
+## Visual Studio Code
+
+VS Code is a free code editor runs on most of Operating Systems, with rich source of extensions and integrated with AI freatures(GitHub Copilot)
+
+![](imgs/vscode-r.png)
+
+## Getting started in VS Code
+
+. . .
+
+1.  Install R(\>=3.4.0) which introduced before (From CRAN).
+
+. . .
+
+2.  Install Pacakge languageserver in R.
+
+```{r}
+install.packages("languageserver")
+```
+
+. . .
+
+3.  Install the R extension for Visual Studio Code.
+
+. . .
+
+4.  Setup for R extension and try to write code
+
+## Enhanced tools for R in VS Code (official recommendation)
+
+::: incremental
+-   R terminal in VS Code doesn't have code completion feature in R terminal to replace R Console in RStudio.
+
+-   Install [radian](https://github.com/randy3k/radian) for a better R terminal for programming.
+:::
+
+## radian
+
+A modern R console that corrects many limitations of the official R terminal and supports many features such as syntax highlighting and auto-completion.
+
+![](imgs/radian.png)
+
+Requirement: R (\>=3.4.0), Python (version 3.8 or above)
+
+Installing radian via pipx would be the easiest option
+
+``` python
+# install released version
+pipx install radian
+# or the dev version
+pipx install git+https://github.com/randy3k/radian
+# to run radian
+radian
+```
+
+Use `radian` to replace default Rterm executable ![](imgs/rterm-radian.png)
+
+## httpgd
+
+-   An R package to provide a graphics device that asynchronously serves SVG graphics via HTTP and WebSockets. This package is required by the interactive plot viewer of the R extension for VS Code.
+
+![](imgs/httpgd.gif)
+
+```{r}
+install.packages("httpgd")
+```
+
+## Positron
+
+-   Positron is the next-generation data science IDE built for Python and R which released by POSIT.
+
+-   Basically it is a VS code IDE hybrid with RStudio. But Positron is more suitable for data scientists who coding with both R and Python, since people rarely write Python in RStudio even it has this ability.
+
+-   The panel layout is similar with RStudio, and have guides for migrating from RStudio and VS Code.
+
+. . .
+
+![](imgs/user-interface-for-rstudio-migration.jpeg)
+
+## Positron features
+
+-   The product is designed to be user-friendly for both R and Python user to exploring data science.
+
+-   Data explore feature is one of advantages for this IDE, the better Data Grid, Summary Panel and Filter Bar than RStudio. ![](imgs/data-explorer.png)
+
+-   Rich Source of extensions and capable of import settings and extension from OpenVSX
+
+-   Easier setup than VS Code and integrated AI Tools (Anthropic/GitHub Copilot for chat and GitHub Copilot for inline code completions)
+
+---
+
+<div class="appendix-title-container">
+  <div class="appendix-title">Packages</div>
+</div>
+
+
+## About R Packages
+
+All R functions and datasets are stored in packages. Only when a package is loaded are its contents available. This is done both for efficiency (the full list would take more memory and would take longer to search than a subset), and to aid package developers, who are protected from name clashes with other code.
+
+-   RTools: Rtools is only needed for installation of R packages from source or building R from source.
+
+![Choose right version for R](imgs/rtools.png)
+
+## Install Packages
+
+-   CRAN
+
+    -   (Currently, the CRAN package repository features 23056 available packages. - Nov2025)
+
+    ```{r}
+    install.packages("tidyverse")
+    ```
+
+-   Bioconductor Packages
+
+    -   (Open source and open development, most for computational biology and bioinformatics, 2361 packages - NOV2025)
+
+```{r}
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install(version = "3.16")
+```
+
+-   Local zipped file .gz.tar
+
+```{r}
+install.packages("tidyverse_2.0.0.tar", repos = NULL, type = "source")
+```
+
+-   GitHub
+
+```{r}
+library(devtools)
+install_github("cran/pwr")
+install_github("https://github.com/cran/pwr")
+```
+
+## `pak` - A Fresh Approach to R Package Installation
+
+-   [pak](https://pak.r-lib.org/) installs R packages from CRAN, Bioconductor, GitHub, URLs, git repositories, local files and directories. It is an alternative to install.packages() and devtools::install_github(). pak is fast, safe and convenient.
+
+    -   Install or update packages from CRAN or Bioconductor
+
+```{r}
+pak::pkg_install("tibble")
+```
+
+-   Install packages from GitHub
+
+```{r}
+pak::pkg_install("tibble")
+```
+
+-   Install a local package and its dependencies
+
+```{r}
+pak::local_install("cli")
+```
+
+-   Look up dependencies
+
+```{r}
+#| eval: true
+pak::pkg_deps_tree("tibble")
+```
+
+## A real case about install packages
+
+**Task**: Matching Adjusted Indirect Comparison (MAIC) for study 111 in 2025, which require `MAIC` R packages published on `r fontawesome::fa("github", "black")` <https://github.com/Roche/MAIC>
+
+. . .
+
+First typical mistake is triggered by WRONG package source, also case sensitive issue, when statistician told me why installed packages doesn't have right functions:
+
+```{r}
+# Not target package
+install.packages("maic")
+
+# Right one
+devtools::install_github(
+  "roche/MAIC",
+  ref = "main"
+  )
+```
+
+## A real case about install packages 2
+
+Still failed 🤦‍♂️![](imgs/git-error.png)
+
+. . .
+
+Solution: You need a ladder to connect to GitHub and set the proxy and port in `.Renviron` file
+
+``` r
+# Assume port 7890
+http_proxy=http://127.0.0.1:7890
+https_proxy=http://127.0.0.1:7890
+```
+
+## A real case about install packages 3
+
+Why failed again? 😱
+
+![](imgs/pkg-fail.png)
+
+. . .
+
+This installation failure is quite tricky and not typical. The `MAIC` package developing team decided to upgrade and revision package to CRAN, so the stable package on Github was superseded and package maintainer role is removed in package description file, which lead to this failure.
+
+. . .
+
+Solution: Install the specific commit version from Github. ![](imgs/git-commit.png)
+
+```{r}
+#| code-line-numbers: "|3"
+devtools::install_github(
+  "roche/MAIC", 
+  ref = "92b1aa5"
+  )
+```
+
+![](imgs/install_maic_commit.png)
+
+## Use Packages
+
+All R functions and datasets are stored in packages. Only when a package is loaded are its contents available.
+
+To see which packages are installed at your site:
+
+```{r}
+library()
+```
+
+To load a particular package:
+
+```{r}
+library(ggplot)
+```
+
+Install and Update packages:
+
+```{r}
+install.packages()
+update.packages()
+```
+
+To see which packages are currently loaded:
+
+```{r}
+search()
+```
+
+## Namespaces
+
+-   Packages have namespaces, which do three things:
+
+    1.  They allow the package writer to hide functions and data that are meant only for internal use
+    2.  They prevent functions from breaking when a user (or other package writer) picks a name that clashes with one in the package
+    3.  They provide a way to refer to an object within a particular package.
+
+-   Two operators that work with namespaces
+
+    1.  Double-colon operator `::` selects definitions from a particular namespace
+
+```{r}
+ggplot2::ggplot()
+```
+
+2.  The triple-colon operator `:::` allows access to hidden objects
+
+---
+
+<div class="appendix-title-container">
+  <div class="appendix-title">Some R Basics</div>
+</div>
+
+
+## R Data Type
+
+-   R has 6 basic data types
+    -   Character
+    -   Double
+    -   Logical
+    -   Integer
+    -   Complex
+    -   Raw
+
+## Character
+
+-   Same as SAS character string
+-   We can apply typeof() or class() to see the data type
+
+```{r}
+#| echo: true
+#| eval: true
+x <- "R Programming"
+typeof(x)
+```
+
+```{r}
+#| echo: true
+#| eval: true
+class(x)
+```
+
+-   single quotes or double quotes are same when assign, but use double quotes only when character contains single quotes
+
+```{r}
+#| echo: true
+#| eval: true
+y <- 'R Programming'
+typeof(y)
+z <- "We're programmers"
+print(z)
+```
+
+## Logical
+
+-   Also known as Boolean Value
+-   T stand for TRUE
+-   F stand for FALSE
+-   T/F can be applied to all logical values for TRUE/FALSE
+
+```{r}
+#| echo: true
+#| eval: true
+typeof(FALSE)
+```
+
+```{r}
+#| eval: true
+is.logical(T)
+```
+
+-   Be careful with Case-sensitive which is different with SAS, if you apply is.logical(true) to R, you will get an error to tell you object 'true' not found.
+
+## Integer
+
+-   1:10 represents integer sequence 1 to 10
+
+```{r}
+#| eval: true
+aseq <- 1:10
+typeof(aseq)
+```
+
+-   the letter "L" declares this as an integer
+
+```{r}
+#| eval: true
+aint = 6L
+is.integer(aint)
+```
+
+-   In R, 6 generally is double instead of integer
+
+```{r}
+#| eval: true
+is.integer(6)
+```
+
+## Double
+
+```{r}
+#| eval: true
+typeof(6.666)
+```
+
+```{r}
+#| eval: true
+is.double(pi)
+```
+
+```{r}
+#| eval: true
+is.double(0L)
+```
+
+```{r}
+#| eval: true
+is.double(0L + 1.5)
+```
+
+-   two integers in addition will still be integer
+
+```{r}
+#| eval: true
+is.integer(6L + 7L)
+```
+
+## Complex (Unusual)
+
+-   9 + 3i, where "i" is the imaginary part
+
+```{r}
+#| eval: true
+x <- 9 + 3i
+typeof(x)
+```
+
+## Raw (Unusual)
+
+-   The raw data type holds raw bytes, so it is a very unusual data type.
+-   you could transform a character object or a integer numeric value to a raw object with the charToRaw and intToBits functions, respectively.
+-   Only needed when handling binary data
+
+```{r}
+#| eval: true
+a <- charToRaw("Hello")
+a
+typeof(a) 
+
+b <- intToBits(3L)
+b 
+typeof(b) 
+```
+
+## Data Structure
+
+-   R has many data structures. These include
+    -   Vectors
+    -   Lists
+    -   Matrices
+    -   Data frames
+    -   Arrays
+
+## Data Structure in dimensionality
+
+-   Can be organised by their dimensionality (1d, 2d, or nd) and whether they are homogeneous or heterogeneous.
+
+| Dimension | Homogeneous   | Heterogeneous |
+|-----------|---------------|---------------|
+| 1D        | Atomic vector | List          |
+| 2D        | Matrix        | Data frame    |
+| nD        | Array         |               |
+
+## Vectors
+
+-   Vectors come in two flavours: atomic vectors and lists and they differ in terms of their elements’ types
+    -   For atomic vectors, all elements must have the same type
+    -   For lists, elements can have different types
+    -   NULL often serves the role of a generic zero length vector
+
+![](imgs/summary-tree.png)
+
+## Atomic vectors
+
+-   The simpler type of vector which may contains four usual data types:
+
+![](imgs/summary-tree-atomic.png)
+
+## Combine Values into a Vector with c()
+
+```{r}
+#| eval: true
+lgl_var <- c(TRUE, FALSE)
+int_var <- c(1L, 6L, 10L)
+dbl_var <- c(1, 2.5, 4.5)
+chr_var <- c("these are", "some strings")
+```
+
+-   When the inputs are atomic vectors, c() always creates another atomic vector
+
+```{r}
+#| eval: true
+c(c(1, 2), c(3, 4))
+```
+
+## Missing value
+
+-   R represents missing, or unknown values, with special sentinel value: NA
+
+```{r}
+#| eval: true
+NA > 5
+10 * NA
+!NA
+```
+
+-   Optionally, You can create NA of a specific type with NA_real\_, NA_integer\_, NA_character\_
+
+```{r}
+#| eval: true
+typeof(NA_integer_)
+typeof(NA_real_)
+typeof(NA_character_)
+```
+
+## Find the missing value in vector
+
+-   Common mistake
+
+```{r}
+#| eval: true
+a <- 1
+a == 1
+x <- c(NA, 5, NA, 10)
+x == NA
+```
+
+-   Test for the presence of missingness
+
+```{r}
+#| eval: true
+is.na(x)
+```
+
+## List
+
+-   Lists are different from atomic vectors because their elememts can be of any type
+-   str() function to present description of any R data structure
+
+```{r}
+#| eval: true
+l1 <- list(
+  1:3, 
+  "a", 
+  c(TRUE, FALSE, TRUE), 
+  c(2.3, 5.9)
+)
+
+typeof(l1)
+
+
+str(l1)
+
+```
+
+## Testing and coercion
+
+-   The typeof() a list is list. You can test for a list with is.list(), and coerce to a list with as.list()
+
+```{r}
+#| eval: true
+list(1:3)
+```
+
+```{r}
+#| eval: true
+as.list(1:3)
+```
+
+## Differences between list() and c()
+
+-   Lists are sometimes called recursive vectors because a list can contain other lists
+
+```{r}
+#| eval: true
+l3 <- list(list(list(1)))
+str(l3)
+```
+
+![](imgs/list-recursive.png)
+
+-   c() will combine several lists into one
+
+```{r}
+#| eval: true
+l4 <- list(list(1, 2), c(3, 4))
+l5 <- c(list(1, 2), c(3, 4))
+str(l4)
+```
+
+![](imgs/list-c.png)
+
+## Matrices
+
+-   An examples to create a matrix, and useful functions to check the names and numbers for col/row.
+
+```{r}
+#| eval: true
+a <- matrix(1:6, ncol=3, nrow=2, dimnames = list(c("row1", "row2"),
+                               c("C.1", "C.2", "C.3")))
+a
+```
+
+```{r}
+#| eval: true
+colnames(a)
+rownames(a)
+ncol(a)
+nrow(a)
+```
+
+## Data Frame
+
+-   A data frame is a very important data type in R. It’s pretty much the de facto data structure for most tabular data and what we use for statistics.
+
+```{r}
+#| eval: true
+df1 <- data.frame(x = 1:3, y = letters[1:3])
+str(df1)
+```
+
+-   Check the meta-data for data frame with attr() or attributes()
+
+```{r}
+#| eval: true
+attributes(df1)
+```
+
+## Useful Data frame Functions
+
+-   head() - shows first 6 rows
+-   tail() - shows last 6 rows
+-   dim() - returns the dimensions of data frame (i.e. number of rows and number of columns)
+-   nrow() - number of rows
+-   ncol() - number of columns
+-   str() - structure of data frame - name, type and preview of data in each column
+-   names() or colnames() - both show the names attribute for a data frame
+-   sapply(dataframe, class) - shows the class of each column in the data frame
+
+## factors
+
+-   A factor is a vector that only contain predefined values and are used to store categorical data
+
+```{r}
+#| eval: true
+x <- factor(c("a", "b", "c", 'c', "d", "d"))
+x
+```
+
+```{r}
+#| eval: true
+class(x)
+levels(x)
+```
+
+## Subsetting
+
+-   R’s subsetting operators are fast and powerful. However it is easy to learn but hard to master.
+    -   There are six ways to subset atomic vectors.
+    -   There are three subsetting operators, \[\[, \[, and \$.
+    -   Subsetting operators interact differently with different vector types (e.g., atomic vectors, lists, factors, matrices, and data frames).
+    -   Subsetting can be combined with assignment.
+
+## Subsetting - Atomic vectors
+
+-   There are six things that you can use to subset a vector:
+
+-   **Positive integers** return elements at the specified positions
+
+```{r}
+#| eval: true
+x <- c(2.1, 4.2, 3.3, 5.4)
+x[c(3, 1)]
+
+x[order(x)]
+
+# Duplicate indices will duplicate values
+x[c(1, 1)]
+
+# Real numbers are silently truncated to integers
+x[c(2.1, 2.9)]
+```
+
+## Subsetting - Atomic vectors 2
+
+-   **Negative integers** exclude elements at the specified positions
+
+```{r}
+#| eval: true
+x
+x[-c(3, 1)]
+```
+
+## Subsetting - Atomic vectors 3
+
+-   **Logical vectors** select elements where the corresponding logical value is TRUE. This is probably the most useful type of subsetting because you can write an expression that uses a logical vector
+
+```{r}
+#| eval: true
+x
+x[c(TRUE, TRUE, FALSE, FALSE)]
+x[x > 3]
+```
+
+-   **recycling rules** when different length
+
+```{r}
+#| eval: true
+x[c(TRUE, FALSE)]
+x[c(TRUE, FALSE, TRUE, FALSE)]
+```
+
+## Subsetting - Atomic vectors 4
+
+-   **Nothing** returns the original vector
+
+```{r}
+#| eval: true
+x[]
+```
+
+-   **Zero** returns a zero-length vector. This is not something you usually do on purpose, but it can be helpful for generating test data
+
+```{r}
+#| eval: true
+x[0]
+```
+
+## Subsetting - Atomic vectors 5
+
+-   Use **character vectors** to matching named vector
+
+```{r}
+#| eval: true
+y <- setNames(x, letters[1:4])
+y[c("d", "c", "a")]
+```
+
+## Subsetting - Data frame
+
+-   For each dimension, use one index separated by comma
+
+```{r}
+#| eval: true
+df <- data.frame(x = 1:3, y = 3:1, z = letters[1:3])
+
+df[df$x == 2, ]
+```
+
+```{r}
+#| eval: true
+df[c(1, 3), ]
+```
+
+```{r}
+#| eval: true
+df[, c("x", "z")]
+```
+
+## Preserving dimensionality
+
+-   By default, subsetting a matrix or data frame with a single number, a single name, or a logical vector containing a single TRUE, will simplify the returned output, i.e. it will return an object with lower dimensionality. To preserve the original dimensionality, you must use drop = FALSE
+
+```{r}
+#| eval: true
+df <- data.frame(a = 1:2, b = 1:2)
+str(df[, "a"])
+```
+
+```{r}
+#| eval: true
+str(df[, "a", drop = FALSE])
+```
+
+## Choices
+
+The basic form of an if statement in R is as follows:
+
+```{r}
+if (condition) true_action
+if (condition) true_action else false_action
+```
+
+```{r}
+#| eval: true
+x <- 2
+
+if (x > 2) {
+  print("x is greater than 2")
+} else if (x == 2) {
+  print("x is equal to 2")
+} else {
+  print("x is not greater than 2")
+}
+```
+
+## `switch()` statement
+
+Closely related to if is the switch()-statement. It’s a compact, special purpose equivalent that lets you replace code like:
+
+```{r}
+x_option <- function(x) {
+  if (x == "a") {
+    "option 1"
+  } else if (x == "b") {
+    "option 2" 
+  } else if (x == "c") {
+    "option 3"
+  } else {
+    stop("Invalid `x` value")
+  }
+}
+```
+
+which is equivalent to:
+
+```{r}
+x_option <- function(x) {
+  switch(x,
+    a = "option 1",
+    b = "option 2",
+    c = "option 3",
+    stop("Invalid `x` value")
+  )
+}
+```
+
+## Write loops in R
+
+for loops are used to iterate over items in a vector. They have the following basic form:
+
+```{r}
+for (item in vector) perform_action
+```
+
+For each item in vector, perform_action is called once; updating the value of item each time.
+
+There are two ways to terminate a for loop early: - next exits the current iteration. - break exits the entire for loop.
+
+```{r}
+#| eval: true
+for (i in 1:10) {
+  if (i < 3) 
+    next
+
+  print(i)
+  
+  if (i >= 5)
+    break
+}
+```
+
+## Related tools
+
+`for` loops are useful if you know in advance the set of values that you want to iterate over. If you don’t know, there are two related tools with more flexible specifications:
+
+-   `while(condition) action`: performs `action` while condition is `TRUE`.
+
+```{r}
+#| eval: true
+a <-  1
+
+repeat {
+  # starting of repeat statements block
+  print(a)
+  a <- a + 1
+  # ending of repeat statements block
+  if(a > 5) { # breaking condition
+    break
+  }
+}
+```
+
+\-`repeat(action)`: repeats `action` forever (i.e. until it encounters `break\`).
+
+```{r}
+#| eval: true
+i <- 1
+
+while(i <= 10){
+  cat(i," ")
+  i <- i + 1
+}
+```
+
+---
+
+<div class="appendix-title-container">
+  <div class="appendix-title">Data import/export in R</div>
+</div>
+
+## Data input
+
+-   Read data from the work directory
+
+```{r}
+setwd(Users/DOCUMENTS)
+cardata<-read.csv("cars.csv", row.names = 1)
+```
+
+-   Read first two row
+
+```{r}
+cardata<-read.csv("cars.csv", row.names = 1, nrows = 2)
+```
+
+-   Skip the first three lines
+
+```{r}
+cardata<-read.csv("cars.csv", row.names = 1, skip = 3)
+```
+
+## Import data by delimiter
+
+-   Comma
+
+```{r}
+read.csv()
+```
+
+-   Tab
+
+```{r}
+read.table()
+```
+
+-   specify your own:
+
+```{r}
+read.delim(, delim=";")
+```
+
+## Import xls and xlsx files
+
+Suggest to use `readxl` package
+
+```{r}
+library(readxl)
+```
+
+Selected sheet to read:
+
+```{r}
+read_xlsx("./data/test.xlsx", sheet = sheet1)
+```
+
+Read by range:
+
+```{r}
+read_xlsx("./data/test.xlsx", range = "A1:Z100")
+```
+
+Read selected column type (options: “skip”, “guess”, “logical”, “numeric”, “date”, “text” or “list”):
+
+```{r}
+read_xlsx("./data/test.xlsx", col_types = "text")
+```
+
+## Import SAS datasets into R
+
+Suggest to use `haven` package:
+
+```{r}
+library(haven)
+
+# .sas7bdat
+ADSL <- read_sas("adsl.sas7bdat")
+
+# .xpt
+AE <- read_xpt("ae.xpt")
+```
+
+## Data Output
+
+```{r}
+write.csv(car, file = "cars.csv")
+write.table(car, file = "cars.txt")
+```
+
+-   Export xlsx
+
+```{r}
+writexl::write_xlsx(iris, path = "iris.xlsx", col_names = TRUE)
+```
+
+-   Export XPT
+    -   `haven` package can write SAS transport format v5 & v8, but cannot export `sas7bdat` datasets.
+
+```{r}
+haven::write_xpt(ADAE, "adae.xpt", version = 5)
+```
+
+## Reference and R books
+
+- If you have willing to learn more about R, please visit our workshop website [https://statprogworkshop.onrender.com/](https://statprogworkshop.onrender.com/) with R books selection.
+
+
+# Thanks {.end-slide}
+
+![](assets/logo-end.png){.absolute top="200" left="330" width="400" height="320"}
