@@ -277,7 +277,7 @@ pak::pkg_install("tibble")
 -   Install packages from GitHub
 
 ```{r}
-pak::pkg_install("tibble")
+pak::pkg_install("tidyverse/tibble")
 ```
 
 -   Install a local package and its dependencies
@@ -760,7 +760,7 @@ levels(x)
 -   R’s subsetting operators are fast and powerful. However it is easy to learn but hard to master.
     -   There are six ways to subset atomic vectors.
     -   There are three subsetting operators, \[\[, \[, and \$.
-    -   Subsetting operators interact differently with different vector types (e.g., atomic vectors, lists, factors, matrices, and data frames).
+    -   Subsetting operators interact differently with different types (e.g., atomic vectors, lists, factors, matrices, and data frames).
     -   Subsetting can be combined with assignment.
 
 ## Subsetting - Atomic vectors
