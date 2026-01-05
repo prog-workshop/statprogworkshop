@@ -36,11 +36,17 @@ pre {
 
 ### 📔 Workshop Schedules
 
+-   [**Year 2026**]{style="color:#E85811"}
+
+| Topics                                                                                 | Lecturer  | Date       |
+|----------------------------------|-------------------|-------------------|
+| [Clinical Reports with R II](Clinical_Report_with_R_2/Clinical_Report_with_R_2.html) | Tao Xiang | 2026-01-16 |
+
+
 -   [**Year 2025**]{style="color:#E85811"}
 
 | Topics                                                                                 | Lecturer  | Date       |
 |----------------------------------|-------------------|-------------------|
-| Pending...                                                                             | Tao Xiang | 2025-12    |
 | [Introduction to R programming](Introduction%20to%20R%20Programming/Intro_R_prog.html) | Tao Xiang | 2025-11-28 |
 
 -   [**Year 2024**]{style="color:#E85811"}
