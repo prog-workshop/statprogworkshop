@@ -1,0 +1,110 @@
+/*-- scss:defaults --*/
+$presentation-h1-font-size: 4.0em;
+$primary-color: #0b0f78;    
+$accent-color:  #e45a00;    
+$line-color:    #ff6600;   
+
+/*-- scss:rules --*/
+.reveal .end-slide h1{
+  text-align: center;
+  margin-bottom: 240px;
+  color: #FF6600;
+  font-size: $presentation-h1-font-size;
+  font-family:Agency FB;
+}
+
+.reveal section h2:not(.origin-title) {
+  font-size: 2.4em;
+  font-weight: 800;
+  color: $primary-color;
+  letter-spacing: 2px;
+  margin-bottom: 25px;
+  padding-left: 20px;
+  position: relative;
+  
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;      
+    bottom: 0;        
+    width: 8px;
+    background-color: $accent-color;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 40px;
+    width: 60%;
+    height: 3px;
+    background-color: $line-color;
+  }
+}
+
+.origin-title {
+  all: revert;
+  font-size: revert;
+  font-weight: revert;
+  margin: revert;
+  padding: revert;
+}
+
+.appendix-title-container {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 60px 1fr; 
+  align-items: center;
+  
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('./assets/header-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -1; 
+    opacity: 0.7; 
+  }
+}
+
+.appendix-title {
+  position: relative;
+  padding: 18px 40px;
+  font-size: 2.6em;
+  font-weight: 800;
+  color: #002060;                  
+  background: rgba(255,255,255,0.55);
+  backdrop-filter: blur(3px);
+  border-radius: 6px;
+  line-height: 1.05;
+  margin-left: 0;
+   grid-column: 2;
+}
+
+
+.appendix-title::before {
+  content: "";
+  position: absolute;
+  left: -45px;
+  top: 0; 
+  bottom: 0;
+  width: 28px; 
+  background: #f26c4f;
+  border-radius: 3px;
+}
+
+
+.appendix-title {
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+.appendix-title:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+}

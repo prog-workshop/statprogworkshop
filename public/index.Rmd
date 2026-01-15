@@ -40,7 +40,7 @@ pre {
 
 | Topics                                                                                 | Lecturer  | Date       |
 |----------------------------------|-------------------|-------------------|
-| [Clinical Reports with R II](Clinical_Report_with_R_2/Clinical_Report_with_R_2.html) | Tao Xiang | 2026-01-16 |
+| [Clinical Reports with R II](Clinical_Report_with_R_2/Clinical_Report_with_R_2.html) | Tao Xiang | 2026-01-23 |
 
 
 -   [**Year 2025**]{style="color:#E85811"}
