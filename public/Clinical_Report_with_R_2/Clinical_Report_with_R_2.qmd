@@ -40,7 +40,7 @@ execute:
 
 ## Backgroud of development
 
-["Clinical Report with R"](https://statprogworkshop.onrender.com/Clinical%20Report%20with%20R/Clinical_Report_With_R.html) is on of workshop I made in summer of 2024. The core is developing TFL workflow in R, which is a migration from our SAS workflow to R. However, the challenge of promote R into our daily programming work lies in the fact that programmer team lack of ability to use R. So, I turned to another powerful solution, **R Shiny**.
+["Clinical Report with R"](https://statprogworkshop.onrender.com/Clinical%20Report%20with%20R/Clinical_Report_With_R.html) is on of workshop I made in summer of 2024. The core is developing TFL workflow in R, which is a migration from our SAS workflow to R. However, comparing with common programming method to generate TFL, more efficient, automatical visualization tool is desired by our department. So, I turned to another powerful solution, **R Shiny**.
 
 ## Introduction to R Shiny
 
@@ -341,6 +341,10 @@ shiny::runApp()
 - Validating existing modules compare with SAS
 
 - Training
+
+## Server deployment concept
+
+![](imgs/teal_ssh.png)
 
 ## Future development
 

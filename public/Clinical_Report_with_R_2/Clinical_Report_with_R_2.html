@@ -467,7 +467,7 @@ Background and Introduction
 </section>
 <section id="backgroud-of-development" class="slide level2">
 <h2>Backgroud of development</h2>
-<p><a href="https://statprogworkshop.onrender.com/Clinical%20Report%20with%20R/Clinical_Report_With_R.html">“Clinical Report with R”</a> is on of workshop I made in summer of 2024. The core is developing TFL workflow in R, which is a migration from our SAS workflow to R. However, the challenge of promote R into our daily programming work lies in the fact that programmer team lack of ability to use R. So, I turned to another powerful solution, <strong>R Shiny</strong>.</p>
+<p><a href="https://statprogworkshop.onrender.com/Clinical%20Report%20with%20R/Clinical_Report_With_R.html">“Clinical Report with R”</a> is on of workshop I made in summer of 2024. The core is developing TFL workflow in R, which is a migration from our SAS workflow to R. However, comparing with common programming method to generate TFL, more efficient, automatical visualization tool is desired by our department. So, I turned to another powerful solution, <strong>R Shiny</strong>.</p>
 </section>
 <section id="introduction-to-r-shiny" class="slide level2">
 <h2>Introduction to R Shiny</h2>
@@ -535,8 +535,8 @@ Background and Introduction
 <h2>Traditional Shiny App</h2>
 <div class="cell">
 <div class="cell-output-display">
-<div class="grViz html-widget html-fill-item" id="htmlwidget-c04ffcdcc227591bb472" style="width:960px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-c04ffcdcc227591bb472">{"x":{"diagram":"digraph {\n\ngraph [layout = dot, rankdir = LR]\n\n# define the global styles of the nodes. We can override these in box if we wish\nnode [shape = rectangle, style = filled, fillcolor = Linen]\n\nDatasets [label =  \"Data \n Datasets 1 \n Datasets 2 \n Datasets 3\"]\nShiny [label = \"Shiny \n ui \n server\", shape = folder, fillcolor = Pink]\n\n# edge definitions with the node IDs\n\nDatasets ->Shiny\n\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-5e2fb42743d672f99873" style="width:960px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-5e2fb42743d672f99873">{"x":{"diagram":"digraph {\n\ngraph [layout = dot, rankdir = LR]\n\n# define the global styles of the nodes. We can override these in box if we wish\nnode [shape = rectangle, style = filled, fillcolor = Linen]\n\nDatasets [label =  \"Data \n Datasets 1 \n Datasets 2 \n Datasets 3\"]\nShiny [label = \"Shiny \n ui \n server\", shape = folder, fillcolor = Pink]\n\n# edge definitions with the node IDs\n\nDatasets ->Shiny\n\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section>
@@ -544,8 +544,8 @@ Background and Introduction
 <h2>teal workflow</h2>
 <div class="cell">
 <div class="cell-output-display">
-<div class="grViz html-widget html-fill-item" id="htmlwidget-b2d99358f7c6b10fe3d1" style="width:960px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-b2d99358f7c6b10fe3d1">{"x":{"diagram":"digraph {\n\ngraph [layout = dot, rankdir = LR]\n\n# define the global styles of the nodes. We can override these in box if we wish\nnode [shape = rectangle, style = filled, fillcolor = Linen]\n\nDatasets1 [label =  \"Datasets 1\"]\nDatasets2 [label =  \"Datasets 2\"]\nDatasets3 [label =  \"Datasets 3\"]\nModule1 [label = \"Module 1 \n ui \n server\", shape = ellipse, fillcolor = Beige]\nModule2 [label = \"Module 2 \n ui \n server\", shape = ellipse, fillcolor = Beige]\nModule3 [label = \"Module 3 \n ui \n server\", shape = ellipse, fillcolor = Beige]\nteal [label = \"teal framework \n ui \n server\", shape = folder, fillcolor = Pink]\napp [label = \"Interactive App\", fillcolor = Moccasin]\n\n# edge definitions with the node IDs\n\nDatasets1 -> Module1\nDatasets2 -> Module2\nDatasets3 -> Module3\n\n{Module1 Module2 Module3} -> teal -> app\n\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-38b8ebc70877b5649a96" style="width:960px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-38b8ebc70877b5649a96">{"x":{"diagram":"digraph {\n\ngraph [layout = dot, rankdir = LR]\n\n# define the global styles of the nodes. We can override these in box if we wish\nnode [shape = rectangle, style = filled, fillcolor = Linen]\n\nDatasets1 [label =  \"Datasets 1\"]\nDatasets2 [label =  \"Datasets 2\"]\nDatasets3 [label =  \"Datasets 3\"]\nModule1 [label = \"Module 1 \n ui \n server\", shape = ellipse, fillcolor = Beige]\nModule2 [label = \"Module 2 \n ui \n server\", shape = ellipse, fillcolor = Beige]\nModule3 [label = \"Module 3 \n ui \n server\", shape = ellipse, fillcolor = Beige]\nteal [label = \"teal framework \n ui \n server\", shape = folder, fillcolor = Pink]\napp [label = \"Interactive App\", fillcolor = Moccasin]\n\n# edge definitions with the node IDs\n\nDatasets1 -> Module1\nDatasets2 -> Module2\nDatasets3 -> Module3\n\n{Module1 Module2 Module3} -> teal -> app\n\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section>
@@ -747,6 +747,10 @@ Conclusion
 <li><p>Training</p></li>
 </ul>
 </section>
+<section id="server-deployment-concept" class="slide level2">
+<h2>Server deployment concept</h2>
+
+<img data-src="imgs/teal_ssh.png" class="r-stretch"></section>
 <section id="future-development" class="slide level2">
 <h2>Future development</h2>
 <ul>
