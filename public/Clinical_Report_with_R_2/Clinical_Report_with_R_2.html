@@ -535,8 +535,8 @@ Background and Introduction
 <h2>Traditional Shiny App</h2>
 <div class="cell">
 <div class="cell-output-display">
-<div class="grViz html-widget html-fill-item" id="htmlwidget-5e2fb42743d672f99873" style="width:960px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-5e2fb42743d672f99873">{"x":{"diagram":"digraph {\n\ngraph [layout = dot, rankdir = LR]\n\n# define the global styles of the nodes. We can override these in box if we wish\nnode [shape = rectangle, style = filled, fillcolor = Linen]\n\nDatasets [label =  \"Data \n Datasets 1 \n Datasets 2 \n Datasets 3\"]\nShiny [label = \"Shiny \n ui \n server\", shape = folder, fillcolor = Pink]\n\n# edge definitions with the node IDs\n\nDatasets ->Shiny\n\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-22353d523b554b7e1b27" style="width:960px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-22353d523b554b7e1b27">{"x":{"diagram":"digraph {\n\ngraph [layout = dot, rankdir = LR]\n\n# define the global styles of the nodes. We can override these in box if we wish\nnode [shape = rectangle, style = filled, fillcolor = Linen]\n\nDatasets [label =  \"Data \n Datasets 1 \n Datasets 2 \n Datasets 3\"]\nShiny [label = \"Shiny \n ui \n server\", shape = folder, fillcolor = Pink]\n\n# edge definitions with the node IDs\n\nDatasets ->Shiny\n\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section>
@@ -544,8 +544,8 @@ Background and Introduction
 <h2>teal workflow</h2>
 <div class="cell">
 <div class="cell-output-display">
-<div class="grViz html-widget html-fill-item" id="htmlwidget-38b8ebc70877b5649a96" style="width:960px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-38b8ebc70877b5649a96">{"x":{"diagram":"digraph {\n\ngraph [layout = dot, rankdir = LR]\n\n# define the global styles of the nodes. We can override these in box if we wish\nnode [shape = rectangle, style = filled, fillcolor = Linen]\n\nDatasets1 [label =  \"Datasets 1\"]\nDatasets2 [label =  \"Datasets 2\"]\nDatasets3 [label =  \"Datasets 3\"]\nModule1 [label = \"Module 1 \n ui \n server\", shape = ellipse, fillcolor = Beige]\nModule2 [label = \"Module 2 \n ui \n server\", shape = ellipse, fillcolor = Beige]\nModule3 [label = \"Module 3 \n ui \n server\", shape = ellipse, fillcolor = Beige]\nteal [label = \"teal framework \n ui \n server\", shape = folder, fillcolor = Pink]\napp [label = \"Interactive App\", fillcolor = Moccasin]\n\n# edge definitions with the node IDs\n\nDatasets1 -> Module1\nDatasets2 -> Module2\nDatasets3 -> Module3\n\n{Module1 Module2 Module3} -> teal -> app\n\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-21bab17f03a473a48093" style="width:960px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-21bab17f03a473a48093">{"x":{"diagram":"digraph {\n\ngraph [layout = dot, rankdir = LR]\n\n# define the global styles of the nodes. We can override these in box if we wish\nnode [shape = rectangle, style = filled, fillcolor = Linen]\n\nDatasets1 [label =  \"Datasets 1\"]\nDatasets2 [label =  \"Datasets 2\"]\nDatasets3 [label =  \"Datasets 3\"]\nModule1 [label = \"Module 1 \n ui \n server\", shape = ellipse, fillcolor = Beige]\nModule2 [label = \"Module 2 \n ui \n server\", shape = ellipse, fillcolor = Beige]\nModule3 [label = \"Module 3 \n ui \n server\", shape = ellipse, fillcolor = Beige]\nteal [label = \"teal framework \n ui \n server\", shape = folder, fillcolor = Pink]\napp [label = \"Interactive App\", fillcolor = Moccasin]\n\n# edge definitions with the node IDs\n\nDatasets1 -> Module1\nDatasets2 -> Module2\nDatasets3 -> Module3\n\n{Module1 Module2 Module3} -> teal -> app\n\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section>
@@ -745,6 +745,7 @@ Conclusion
 <li><p>Testing and Bug fixed</p></li>
 <li><p>Validating existing modules compare with SAS</p></li>
 <li><p>Training</p></li>
+<li><p>Continuously develop essential modules (Efficacy summary tables for Response/Time-to-event endpoints, line plot for average change from baseline)</p></li>
 </ul>
 </section>
 <section id="server-deployment-concept" class="slide level2">

@@ -342,6 +342,8 @@ shiny::runApp()
 
 - Training
 
+- Continuously develop essential modules (Efficacy summary tables for Response/Time-to-event endpoints, line plot for average change from baseline)
+
 ## Server deployment concept
 
 ![](imgs/teal_ssh.png)
