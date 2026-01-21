@@ -195,9 +195,9 @@ Spending months on diving into open-source solutions to statistical analysis. I 
 
 |Roles                        | Primary Responsibility  |
 |-----------------------------|-------------------------|
-| `teal` app user             | Use app to product statistical reports, all faculty in BIOS. R knowledges in not required. |
-| `teal` app developer        | Create app from built functions from `teal` ecosystem. Need intermediate R skills like Basic, idyverse, Shiny, functional programming. Have to learn `teal` framework with bunch of resources.         |
-| `teal` module developer     | Create customized modules on internal analysis purpose. Need a little advanced R knowledge. Understand reactive programming in Shiny, meta-programming for source development, familiar with table grammer packages like rtables, draw complex plot with `ggplot2`, rendering engine R packages for output, so and so forth.                     |
+| `teal` app user             | Use app to product statistical reports, all faculty in BIOS. R knowledge is not required. |
+| `teal` app developer        | Create app from built functions from `teal` ecosystem. Need intermediate R skills like Basic, tidyverse, Shiny, functional programming. Have to learn `teal` framework with bunch of resources.         |
+| `teal` module developer     | Create customized modules on internal analysis purpose. Need a little advanced R knowledge. Understand reactive programming in Shiny, meta-programming for source development, familiar with table-grammar R packages like `rtables`, draw complicated plots with `ggplot2`, rendering engine R packages for output, so and so forth.                     |
 |  `teal` framework developer | Roche NEST project team and collaborators from other open-source developing team. Create and maintain this frameworks by those SDEs and data scientists. |
 
 ---
@@ -208,7 +208,7 @@ Spending months on diving into open-source solutions to statistical analysis. I 
 
 ## `teal4dv`
 
-`teal4dv` is how I named this shiny app, created and modified from `teal` ecosystem designed and open sourced by Roche NEST Project. This app is developed for internal use by Innocare Biostat team, applied for statistical monitor and data visualization purpose.
+`teal4dv` is the given name for this shiny app, created and modified from `teal` ecosystem designed and open sourced by Roche NEST Project. This app is developed for internal use by Innocare Biostat team, applied for statistical monitor and data visualization purpose.
 
 This app (`teal4dv` v0.0.0.9000) is created for local use at beginning. We will figure out server deployment strategy in future.
 

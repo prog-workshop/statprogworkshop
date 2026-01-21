@@ -535,8 +535,8 @@ Background and Introduction
 <h2>Traditional Shiny App</h2>
 <div class="cell">
 <div class="cell-output-display">
-<div class="grViz html-widget html-fill-item" id="htmlwidget-22353d523b554b7e1b27" style="width:960px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-22353d523b554b7e1b27">{"x":{"diagram":"digraph {\n\ngraph [layout = dot, rankdir = LR]\n\n# define the global styles of the nodes. We can override these in box if we wish\nnode [shape = rectangle, style = filled, fillcolor = Linen]\n\nDatasets [label =  \"Data \n Datasets 1 \n Datasets 2 \n Datasets 3\"]\nShiny [label = \"Shiny \n ui \n server\", shape = folder, fillcolor = Pink]\n\n# edge definitions with the node IDs\n\nDatasets ->Shiny\n\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-0ca47f4bba9cb844caf5" style="width:960px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-0ca47f4bba9cb844caf5">{"x":{"diagram":"digraph {\n\ngraph [layout = dot, rankdir = LR]\n\n# define the global styles of the nodes. We can override these in box if we wish\nnode [shape = rectangle, style = filled, fillcolor = Linen]\n\nDatasets [label =  \"Data \n Datasets 1 \n Datasets 2 \n Datasets 3\"]\nShiny [label = \"Shiny \n ui \n server\", shape = folder, fillcolor = Pink]\n\n# edge definitions with the node IDs\n\nDatasets ->Shiny\n\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section>
@@ -544,8 +544,8 @@ Background and Introduction
 <h2>teal workflow</h2>
 <div class="cell">
 <div class="cell-output-display">
-<div class="grViz html-widget html-fill-item" id="htmlwidget-21bab17f03a473a48093" style="width:960px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-21bab17f03a473a48093">{"x":{"diagram":"digraph {\n\ngraph [layout = dot, rankdir = LR]\n\n# define the global styles of the nodes. We can override these in box if we wish\nnode [shape = rectangle, style = filled, fillcolor = Linen]\n\nDatasets1 [label =  \"Datasets 1\"]\nDatasets2 [label =  \"Datasets 2\"]\nDatasets3 [label =  \"Datasets 3\"]\nModule1 [label = \"Module 1 \n ui \n server\", shape = ellipse, fillcolor = Beige]\nModule2 [label = \"Module 2 \n ui \n server\", shape = ellipse, fillcolor = Beige]\nModule3 [label = \"Module 3 \n ui \n server\", shape = ellipse, fillcolor = Beige]\nteal [label = \"teal framework \n ui \n server\", shape = folder, fillcolor = Pink]\napp [label = \"Interactive App\", fillcolor = Moccasin]\n\n# edge definitions with the node IDs\n\nDatasets1 -> Module1\nDatasets2 -> Module2\nDatasets3 -> Module3\n\n{Module1 Module2 Module3} -> teal -> app\n\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-779225aa99c566425a53" style="width:960px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-779225aa99c566425a53">{"x":{"diagram":"digraph {\n\ngraph [layout = dot, rankdir = LR]\n\n# define the global styles of the nodes. We can override these in box if we wish\nnode [shape = rectangle, style = filled, fillcolor = Linen]\n\nDatasets1 [label =  \"Datasets 1\"]\nDatasets2 [label =  \"Datasets 2\"]\nDatasets3 [label =  \"Datasets 3\"]\nModule1 [label = \"Module 1 \n ui \n server\", shape = ellipse, fillcolor = Beige]\nModule2 [label = \"Module 2 \n ui \n server\", shape = ellipse, fillcolor = Beige]\nModule3 [label = \"Module 3 \n ui \n server\", shape = ellipse, fillcolor = Beige]\nteal [label = \"teal framework \n ui \n server\", shape = folder, fillcolor = Pink]\napp [label = \"Interactive App\", fillcolor = Moccasin]\n\n# edge definitions with the node IDs\n\nDatasets1 -> Module1\nDatasets2 -> Module2\nDatasets3 -> Module3\n\n{Module1 Module2 Module3} -> teal -> app\n\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section>
@@ -589,15 +589,15 @@ Background and Introduction
 <tbody>
 <tr class="odd">
 <td><code>teal</code> app user</td>
-<td>Use app to product statistical reports, all faculty in BIOS. R knowledges in not required.</td>
+<td>Use app to product statistical reports, all faculty in BIOS. R knowledge is not required.</td>
 </tr>
 <tr class="even">
 <td><code>teal</code> app developer</td>
-<td>Create app from built functions from <code>teal</code> ecosystem. Need intermediate R skills like Basic, idyverse, Shiny, functional programming. Have to learn <code>teal</code> framework with bunch of resources.</td>
+<td>Create app from built functions from <code>teal</code> ecosystem. Need intermediate R skills like Basic, tidyverse, Shiny, functional programming. Have to learn <code>teal</code> framework with bunch of resources.</td>
 </tr>
 <tr class="odd">
 <td><code>teal</code> module developer</td>
-<td>Create customized modules on internal analysis purpose. Need a little advanced R knowledge. Understand reactive programming in Shiny, meta-programming for source development, familiar with table grammer packages like rtables, draw complex plot with <code>ggplot2</code>, rendering engine R packages for output, so and so forth.</td>
+<td>Create customized modules on internal analysis purpose. Need a little advanced R knowledge. Understand reactive programming in Shiny, meta-programming for source development, familiar with table-grammar R packages like <code>rtables</code>, draw complicated plots with <code>ggplot2</code>, rendering engine R packages for output, so and so forth.</td>
 </tr>
 <tr class="even">
 <td><code>teal</code> framework developer</td>
@@ -616,7 +616,7 @@ App Development and how to use
 </section>
 <section id="teal4dv" class="slide level2">
 <h2><code>teal4dv</code></h2>
-<p><code>teal4dv</code> is how I named this shiny app, created and modified from <code>teal</code> ecosystem designed and open sourced by Roche NEST Project. This app is developed for internal use by Innocare Biostat team, applied for statistical monitor and data visualization purpose.</p>
+<p><code>teal4dv</code> is the given name for this shiny app, created and modified from <code>teal</code> ecosystem designed and open sourced by Roche NEST Project. This app is developed for internal use by Innocare Biostat team, applied for statistical monitor and data visualization purpose.</p>
 <p>This app (<code>teal4dv</code> v0.0.0.9000) is created for local use at beginning. We will figure out server deployment strategy in future.</p>
 
 <img data-src="imgs/hex-teal4dv.png" class="r-stretch"></section>
