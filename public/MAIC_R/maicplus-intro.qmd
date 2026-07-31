@@ -1,8 +1,8 @@
 ---
-title: "maicplus"
-subtitle: "Anchored & Unanchored Matching-Adjusted Indirect Comparison in R"
+title: "MAIC analysis using {maicplus}"
+subtitle: "R programming for case study"
 author: Tao Xiang
-date: 2026-07-29
+date: 2026-08-07
 format: 
   revealjs:
     theme: [default, ending.scss]
