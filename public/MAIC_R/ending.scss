@@ -1,0 +1,11 @@
+/*-- scss:defaults --*/
+$presentation-h1-font-size: 4.0em;
+
+/*-- scss:rules --*/
+.reveal .end-slide h1{
+  text-align: center;
+  margin-bottom: 240px;
+  color: #FF6600;
+  font-size: $presentation-h1-font-size;
+  font-family:Agency FB;
+}

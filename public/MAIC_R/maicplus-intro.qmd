@@ -1,0 +1,538 @@
+---
+title: "maicplus"
+subtitle: "Anchored & Unanchored Matching-Adjusted Indirect Comparison in R"
+author: Tao Xiang
+date: 2026-07-29
+format: 
+  revealjs:
+    theme: [default, ending.scss]
+    smaller: true
+    scrollable: true
+    chalkboard: true
+    logo: assets/footlogo.png
+    include-in-header:
+      - text: |
+          <script src="highlight.pack.js"></script>
+          <script>hljs.initHighlightingOnLoad();</script>
+    css: styles/vs.css
+    template-partials:
+        - revealjs-assets/title-slide.html
+revealjs-plugins:
+  - pointer
+execute: 
+  echo: true
+  eval: false
+---
+
+## Why do we need MAIC?
+
+In HTA (health technology assessment), we often need to compare two treatments that
+have never been compared head-to-head.
+
+- If both trials share a common comparator arm (e.g. placebo), a standard indirect
+  comparison (Bucher method) can be used
+- But when the baseline characteristics of the two trial populations differ
+  substantially, a naive indirect comparison can be biased
+- Typically one trial provides **individual patient data (IPD)**, while the other
+  only has **published aggregate data (AgD)**
+
+**MAIC (Matching-Adjusted Indirect Comparison)** re-weights the IPD patients so
+that their weighted baseline characteristics match those reported for the AgD
+trial, adjusting for population differences before comparing outcomes.
+
+::: aside
+Method from Signorovitch et al. (2012); systematically described in NICE DSU TSD 18
+:::
+
+## Anchored vs. unanchored MAIC
+
+```{mermaid}
+flowchart LR
+    A[IPD trial A vs C] -->|common comparator C| B(Anchored MAIC)
+    A -->|no common comparator| C(Unanchored MAIC)
+    B --> D[Preserves randomization, less bias]
+    C --> E[Assumes all effect modifiers/prognostic factors are matched]
+```
+
+- **Anchored**: both trials share a common comparator arm; compares $HR_{AB}$,
+  preserves the benefit of within-trial randomization — the preferred approach
+- **Unanchored**: no common comparator; outcomes are compared directly after
+  weighting, requiring a stronger and more easily violated assumption
+
+## Statistical principle (brief)
+
+Each IPD patient's weight is estimated in logistic form:
+
+$$w_i = \exp(x_i^T \hat\beta)$$
+
+$\hat\beta$ is solved via the **method of moments**, so that the weighted mean of
+the IPD covariates exactly matches the means reported in the AgD:
+
+$$0=\sum_{i=1}^{n}(x_{i}-\bar{x}_{agg})\exp(x_{i}^{T}\hat{\beta})$$
+
+In practice, the IPD covariates are first **centered** (subtracting the AgD means)
+so the target mean becomes 0, and $\beta$ is then solved via convex optimization.
+
+## From MAIC to maicplus: a brief history
+
+```{mermaid}
+timeline
+    title R packages for MAIC: from method to maicplus
+    2012 : Signorovitch et al. publish the MAIC method (Value in Health)
+    2016 : NICE DSU TSD 18 (Phillippo et al.) formalizes population-adjusted indirect comparison methodology
+    2021 : Roche + BresMed release the open-source "MAIC" R package v0.1.0 (Bennett, Gregory, Smith, Birnie)
+    2022 : Independent "maic" (R. Young, CRAN) and "maicChecks" (Yau & Glimm, CRAN) packages published
+    2023 : MSD and Roche launch "maicplus" under a new, vendor-neutral GitHub org (hta-pharma); announced via ISPOR SA83 abstract
+    2024-25 : "maicplus" reaches CRAN; Roche archives "MAIC", pointing users to maicplus
+    2025 : Independent study confirms maic / MAIC / maicplus reproduce identical NICE TSD 18 results
+```
+
+## Why the field consolidated on `maicplus`
+
+- **2012–2016**: Signorovitch's method and NICE DSU TSD 18 gave the field a
+  shared statistical recipe, but everyone still coded it by hand
+- **2021**: Roche (with BresMed) open-sourced the first widely-used
+  implementation, `MAIC`, on GitHub
+- **2022**: two more independent packages appeared — `maic` on CRAN, and
+  `maicChecks`, focused on diagnosing when MAIC is numerically infeasible
+- With several companies maintaining separate, overlapping codebases, MSD and
+  Roche decided to **pool engineering effort** rather than keep duplicating it
+- **2023**: `maicplus` launched under `hta-pharma` — a shared, multi-sponsor
+  GitHub org — explicitly framed as a way to combine expertise across
+  companies into one well-engineered, CRAN-published, submission-ready tool
+- **2024–2025**: `maicplus` reached CRAN; Roche's original `MAIC` repo was
+  archived with a banner recommending `maicplus` instead
+- A 2025 independent comparison found `maic`, `MAIC`, and `maicplus` all
+  reproduce the NICE TSD 18 reference results identically — consolidation
+  standardized *tooling*, not the underlying statistics
+
+::: aside
+Sources: github.com/Roche/MAIC (archive notice); github.com/hta-pharma/maicplus;
+Chen et al., SA83, *Value in Health* 2023;26(12):S558; Glimm & Yau,
+*Pharmaceutical Statistics* 2022; independent comparison, *Value in Health* 2025
+:::
+
+## Introducing the `maicplus` package
+
+- Open-source R package jointly maintained by MSD and Roche, implementing the
+  MAIC workflow proposed by Signorovitch (2012)
+- Published on CRAN; GitHub: `hta-pharma/maicplus`
+- Supports two endpoint types: **time-to-event** and **binary**
+- Covers the full pipeline: data preprocessing, weight estimation, diagnostics,
+  and result reporting
+
+```{r}
+#| eval: false
+install.packages("maicplus")
+library(maicplus)
+```
+
+## Core functions at a glance
+
+| Stage | Function | Purpose |
+|---|---|---|
+| Preprocessing | `process_agd()`, `dummize_ipd()` | Prepare aggregate data / create dummy variables |
+| Centering | `center_ipd()` | Center IPD covariates using AgD means |
+| Weight estimation | `estimate_weights()` | Solve logistic weights via method of moments |
+| Diagnostics | `check_weights()`, `plot_weights_ggplot()` | Effective sample size (ESS), weight distribution |
+| Analysis | `maic_anchored()`, `maic_unanchored()` | Weighted survival/binary comparison |
+| Visualization | `kmplot()`, `kmplot2()`, `basic_kmplot()` | KM curves before/after weighting |
+
+## End-to-end workflow
+
+```{mermaid}
+flowchart TD
+    A[IPD: individual patient data] --> B[Center covariates: center_ipd]
+    C[AgD: published aggregate data] --> B
+    B --> D[Estimate weights: estimate_weights]
+    D --> E[Check weights: check_weights / ESS]
+    E --> F[Weighted analysis: maic_anchored / maic_unanchored]
+    F --> G[Survival/HR or binary/OR results]
+```
+
+## Toy example: package syntax
+
+Before the real case study, a quick look at the syntax using `maicplus`'s
+built-in demo data:
+
+```{r}
+#| eval: true
+#| echo: true
+library(maicplus)
+data("adsl_sat")       # IPD baseline data (trial A)
+data("adtte_sat")      # IPD survival data (trial A)
+data("pseudo_ipd_sat") # Pseudo IPD reconstructed from AgD (trial B, digitized KM)
+str(adsl_sat[, 1:6])
+```
+
+```{r}
+#| eval: false
+#| echo: true
+ipd_centered <- center_ipd(ipd = ipd, agd = agd)
+weighted <- estimate_weights(data = ipd_centered, centered_colnames = centered_colnames)
+result <- maic_unanchored(
+  weights_object = weighted, ipd = adtte_sat, pseudo_ipd = pseudo_ipd_sat,
+  trt_ipd = "A", trt_agd = "B", endpoint_type = "tte", eff_measure = "HR"
+)
+```
+
+Same four calls — `center_ipd()` → `estimate_weights()` → `maic_unanchored()` /
+`maic_anchored()` — drive the real production analysis on the next slides.
+
+# Case study: ICP-022 vs. Acalabrutinib {.end-slide}
+
+An unanchored MAIC in relapsed/refractory mantle cell lymphoma
+
+## Background
+
+- **Intervention (IPD)**: Orelabrutinib (ICP-022), pooled studies **102 + 107**,
+  full analysis set N = **129**, individual patient data available
+- **Comparator (AgD)**: Acalabrutinib, trial **ACE-LY-004**, N = **124**,
+  only published aggregate results available
+- **Indication**: relapsed/refractory mantle cell lymphoma (r/r MCL)
+- **Design**: **unanchored MAIC** — no shared comparator arm between the two trials
+- **Sponsor**: Beijing Innocare Pharma Tech Co., Ltd
+
+Endpoints assessed: ORR, CRR (binary), PFS, OS (time-to-event), and
+treatment-emergent adverse events (safety)
+
+## Matching variables
+
+16 baseline covariates, chosen to reflect prognostic factors/effect modifiers
+reported for ACE-LY-004, were derived from ADaM (`ADSL`) and centered on the
+comparator's published proportions:
+
+| Domain | Covariates |
+|---|---|
+| Demographics | Age ≥ 65, Sex: male |
+| Disease severity | ECOG PS > 1, Refractory disease, LDH > ULN, Stage III/IV, Tumour bulk ≥ 5cm, Bone marrow involvement, sMIPI risk (low / intermediate) |
+| Treatment history | Prior lines ≥ 2, prior rituximab, prior SCT, prior bendamustine, prior bortezomib, prior lenalidomide |
+
+```{r}
+#| eval: false
+#| echo: true
+base_list <- list(
+  AGECAT   = list(label = "Age >=65", count = 80),
+  SEX_MALE = list(label = "Sex: male", count = 99),
+  ECOG_G1  = list(label = "ECOG PS: >1", count = 9),
+  # ... 13 more covariates, each with the AgD responder count
+  LENALIDOMIDE = list(label = "Prior Lenalidomide", count = 9)
+)
+# AgD proportions built from base_list$count / comparator_total (124)
+agd <- as.data.frame(c(list(N = 124, ARM = "Comparator"),
+  setNames(lapply(base_list, \(x) x$count / 124), paste0(names(base_list), "_PROP"))))
+```
+
+## Weight estimation & effective sample size
+
+```{r}
+#| eval: false
+#| echo: true
+ipd_centered <- center_ipd(ipd = ipd, agd = agd)
+
+weighted_sat <- estimate_weights(
+  data = ipd_centered,
+  centered_colnames = paste0(names(base_list), "_CENTERED")
+)
+weighted_sat$ess
+```
+
+| Metric | Value |
+|---|---|
+| IPD sample size (N) | 129 |
+| Effective sample size (ESS) after weighting | **50.2** |
+| ESS reduction | **61%** |
+
+An ESS reduction this large signals fairly limited overlap between the two
+populations on the 16 matching covariates — post-weighting estimates should be
+interpreted with wider uncertainty than the nominal N = 129 would suggest.
+
+## Weight diagnostics
+
+```{r}
+#| eval: false
+#| echo: true
+plot_weights_ggplot(weighted_sat,
+  bin_col = "#4d8dc9", vline_col = "#FF6600",
+  main_title = c("Scaled Individual Weights", "Unscaled Individual Weights"),
+  bins = 30
+)
+```
+
+![](assets/acala_weights.png){fig-align="center" height="480"}
+
+A right-skewed weight distribution with a handful of large weights is
+consistent with the ESS drop above — a small number of orelabrutinib patients
+are doing most of the work to reproduce the ACE-LY-004 population profile.
+
+## Covariate balance before/after weighting
+
+Largest imbalances between unweighted orelabrutinib IPD and the Acalabrutinib
+target (`check_weights()`); after weighting, every covariate matches the AgD
+proportion exactly (method-of-moments guarantee):
+
+| Covariate | Orelabrutinib (unweighted) | Acalabrutinib (target) | Gap |
+|---|---|---|---|
+| Age ≥ 65 | 37.2% | 64.5% | 27.3pp |
+| Prior bortezomib | 5.4% | 19.4% | 13.9pp |
+| Prior lines ≥ 2 | 42.6% | 52.4% | 9.8pp |
+| sMIPI low risk | 48.1% | 38.7% | 9.4pp |
+| Bone marrow involvement | 44.2% | 50.0% | 5.8pp |
+| Prior lenalidomide | 13.2% | 7.3% | 5.9pp |
+| ECOG PS > 1 | 1.6% | 7.3% | 5.7pp |
+
+::: aside
+Remaining 9 covariates were within ~3pp before weighting; full table in `t-1-baseline.rtf`
+:::
+
+## Binary endpoints: ORR and CRR
+
+Unanchored comparison via `maic_unanchored(..., endpoint_type = "binary")`:
+
+| Endpoint | Arm | Before matching | After matching |
+|---|---|---|---|
+| **ORR** | Orelabrutinib | 82.2% (106/129) | 76.9% (ESS-scaled) |
+| | Acalabrutinib | 81.5% (101/124) | 81.5% |
+| | **OR (95% CI)** | 1.05 (0.55, 1.99), p = 0.88 | 0.76 (0.31, 1.89), p = 0.55 |
+| **CRR** | Orelabrutinib | 38.8% (50/129) | 36.6% (ESS-scaled) |
+| | Acalabrutinib | 47.6% (59/124) | 47.6% |
+| | **OR (95% CI)** | 0.70 (0.42, 1.15), p = 0.16 | 0.64 (0.32, 1.26), p = 0.20 |
+
+No statistically significant difference in ORR or CRR, before or after
+adjustment; risk differences (also computed via `eff_measure = "RD"`) tell the
+same story (e.g. CRR: −8.8pp unadjusted, −11.0pp adjusted, both p > 0.15).
+
+## Survival endpoints: PFS and OS
+
+```{r}
+#| eval: false
+#| echo: true
+result_pfs <- maic_unanchored(
+  weights_object = weighted_sat, ipd = adtte_pfs, pseudo_ipd = pseudo_ipd_pfs,
+  trt_ipd = "ICP-022", trt_agd = "Comparator", normalize_weight = TRUE,
+  endpoint_type = "tte", eff_measure = "HR", time_scale = "month"
+)
+```
+
+| Endpoint | Median (months) Orela / Acala | HR (95% CI), p-value |
+|---|---|---|
+| PFS — before matching | 27.6 / 22.1 | 0.83 (0.60, 1.14), p = 0.25 |
+| PFS — after matching | 21.0 / 22.1 | 1.03 (0.70, 1.52), p = 0.88 |
+| OS — before matching | NR / 59.2 | 0.88 (0.60, 1.29), p = 0.51 |
+| OS — after matching | 49.1 / 59.2 | 1.21 (0.74, 1.96), p = 0.45 |
+
+The unadjusted comparison numerically favored orelabrutinib on both PFS and OS;
+after adjusting for the 16 baseline covariates, both hazard ratios move toward
+(PFS) or past (OS) 1 and are not statistically significant — baseline imbalance
+was masking (not creating) an apparent advantage. OS is also still immature.
+
+## PFS Kaplan-Meier curves
+
+```{r}
+#| eval: false
+#| echo: true
+kmplot2(
+  weights_object = weighted_sat, tte_ipd = adtte_pfs, tte_pseudo_ipd = pseudo_ipd_pfs,
+  trt_ipd = "ICP-022", trt_agd = "Comparator", normalize_weights = TRUE,
+  endpoint_name = "Progression-free Survival", time_scale = "month", censor = TRUE
+)
+```
+
+![](assets/acala_km_pfs.png){fig-align="center" height="480"}
+
+The weighted orelabrutinib curve (light green) sits close to the unweighted
+curve (dark green) through mid-follow-up, then tracks slightly below the
+Acalabrutinib curve (purple) — consistent with the HR crossing 1 after weighting.
+
+## Safety: treatment-emergent adverse events
+
+Comparator safety data (26 AE terms, from `acala_ae.csv`) analyzed with the
+same unanchored binary workflow, looped per term in `maic-t4-ae.R`:
+
+| AE category | Acalabrutinib (AgD) | Orelabrutinib (unweighted) | OR (unweighted) |
+|---|---|---|---|
+| Any TEAE | 87.1% (108/124) | 90.7% (117/129) | 1.44 (0.65, 3.19), p = 0.36 |
+| TEAE grade ≥ 3 | 66.1% (82/124) | — | — |
+| SAE | 50.0% (62/124) | — | — |
+| Headache | 38.7% (48/124) | — | — |
+| Diarrhoea | 37.9% (47/124) | — | — |
+
+No individual AE term showed a statistically significant difference; full
+per-term OR/RD (before and after weighting) reported in `t-4-ae.rtf`.
+
+## Case study takeaways
+
+- Baseline imbalance (esp. age, prior bortezomib, prior treatment lines)
+  meaningfully changed the unadjusted vs. adjusted efficacy comparison
+- After MAIC weighting, **no endpoint** (ORR, CRR, PFS, OS) showed a
+  statistically significant difference between orelabrutinib and acalabrutinib
+- ESS fell from 129 to ~50 (−61%) — a reminder that adjusted estimates carry
+  substantially more uncertainty than the nominal sample size implies
+- Safety appears broadly comparable, consistent with a shared BTK-inhibitor
+  class profile
+- As an **unanchored** analysis, results rely on the strong assumption that all
+  relevant effect modifiers/prognostic factors were captured among the 16
+  matching covariates
+
+## Reproducibility & engineering practices
+
+This project follows a modular, auditable analysis structure:
+
+```
+maic-start.R          → data prep, centering, weight estimation (shared)
+maic-t1-baseline.R    → Table 1: covariate balance before/after
+maic-t2-binary.R      → Table 2: ORR/CRR (OR, RD)
+maic-t3-survival.R    → Table 3: PFS/OS (HR, medians)
+maic-t4-ae.R          → Table 4: TEAE loop (OR, RD per term)
+maic-f1/f2-km-*.R     → Figures: PFS/OS KM curves (kmplot2)
+maic-batch-with-log.R → batch runner with logrx audit logs
+```
+
+Each table/figure script `source()`s the shared `maic-start.R` setup, so one
+weighting model feeds every downstream output. Two `pharmaverse`-style
+packages handle the "last mile": **`officer` + `flextable`** for submission-
+ready RTF tables/figures, and **`logrx`** for execution audit logs.
+
+## Environment management with `renv`
+
+`logrx` records *which* package versions ran; it doesn't guarantee those exact
+versions can be reinstalled later. **`renv`** closes that gap with a
+project-local library and lockfile:
+
+```{r}
+#| eval: false
+#| echo: true
+renv::init()      # creates renv/ + .Rprofile; project gets its own library
+# ... install/update packages as usual (install.packages(), etc.) ...
+renv::snapshot()  # records exact package + version graph into renv.lock
+renv::restore()   # on another machine/CI: recreates the identical library
+```
+
+- `renv.lock` is a JSON file listing every package and exact version used by
+  the project — check it into version control alongside the `.R` scripts
+- `renv::restore()` lets a new analyst (or a validation/QC environment)
+  reproduce the *identical* library that produced a given `t-1-baseline.rtf`,
+  not just a same-named-but-possibly-newer set of packages
+- Pairs naturally with `logrx`: `renv.lock` **pins** the environment going
+  forward, while each `logrx` log **documents** what actually ran for one
+  execution — together they cover both "can I rebuild this environment?" and
+  "what exactly happened when this output was produced?"
+
+::: aside
+This project currently pins package versions informally (fixed R version,
+logged sessionInfo per run via `logrx`) but does not yet have a `renv.lock` —
+adding `renv::init()` + `renv::snapshot()` would let the whole `acala/`
+pipeline be restored on a new machine with one command
+:::
+
+## RTF reporting with `officer` + `flextable`
+
+Every table script builds a `flextable`, then wraps it with a study-standard
+header/footer via `officer::block_list()` before writing to RTF:
+
+```{r}
+#| eval: false
+#| echo: true
+table1 <- base_table |>
+  flextable() |>
+  set_header_labels(label = " ",
+    internal_trial = paste0(intervention_header, " \n N=", nrow(ipd), " \n n (%)"),
+    external_trial = paste0(comparator_header, " \n N=", comparator_total, " \n n (%)"),
+    pval1 = "p-value") |>
+  add_header_row(values = c(" ", "Without adjustment", "After adjustment"),
+                  colwidths = c(1, 3, 3)) |>
+  autofit() |>
+  align(j = 2:7, align = "center", part = "all")
+```
+
+```{r}
+#| eval: false
+#| echo: true
+header_default <- block_list(
+  fpar(ftext(headL1, fp_text(font.size = 9))),                 # sponsor name
+  fpar(ftext(headL2, fp_text(font.size = 9)),
+       ftext("Page ", fp_text(font.size = 9)), run_word_field(field = "PAGE"),
+       ftext(" of ", fp_text(font.size = 9)), run_word_field(field = "NUMPAGES")),
+  fpar(ftext("Table 1. Baseline characteristics ...", fp_text(font.size = 9)))
+)
+
+footer_default <- block_list(
+  fpar(ftext(paste0("Note: ESS after adjustment is ", round(weighted_sat$ess, 2), "."),
+             fp_text(font.size = 9))),
+  fpar(ftext(paste0("Program Name: ", program), fp_text(font.size = 9)),
+       ftext(R.version.string, fp_text(font.size = 9)))
+)
+
+sect_properties <- prop_section(
+  page_size(orient = "landscape"),
+  header_default = header_default, footer_default = footer_default
+)
+
+save_as_rtf(table1, path = file.path(path$outpath, outname), pr_section = sect_properties)
+```
+
+- `set_header_labels()` / `add_header_row()` build the "Without adjustment" vs.
+  "After adjustment" column groups seen in Tables 1–4
+- `header_default` / `footer_default` are reused **verbatim** across all
+  table/figure scripts — sponsor name, page numbering, program name, R
+  version, and generation timestamp always appear in the same place
+- Figures use the same pattern via `officer::rtf_doc()` / `rtf_add()`
+  (`maic-f1-km-pfs.R`), embedding the `kmplot2()` + risk-table `patchwork` object
+
+## Reproducibility logging with `logrx`
+
+```{r}
+#| eval: false
+#| echo: true
+# maic-batch-with-log.R
+options(verbose = TRUE)
+
+logrx::axecute("maic-t1-baseline.R")  # Table 1: baseline characteristics
+logrx::axecute("maic-t2-binary.R")    # Table 2: ORR/CRR
+logrx::axecute("maic-t3-survival.R")  # Table 3: PFS/OS (HR)
+logrx::axecute("maic-f1-km-pfs.R")    # Figure 1: PFS KM plot
+logrx::axecute("maic-f2-km-os.R")     # Figure 2: OS KM plot
+logrx::axecute("maic-t4-ae.R")        # Table 4: adverse events
+```
+
+`logrx::axecute()` runs a script and writes a companion `<script>.log` file
+(here `maic-t1-baseline.log`, ~40 KB) capturing:
+
+| Log section | Contents |
+|---|---|
+| Metadata | `logrx` version, CRAN build info |
+| User & file info | user, file path, SHA-1 hash of the script |
+| Session info | R version, OS, locale, **every attached package + version** |
+| Expression trace | each top-level R expression, in execution order |
+| Result | the script's final `save_as_rtf()` return value (output path) |
+
+This gives a per-output audit trail — who ran what code, against which script
+hash and package versions, producing which file — without hand-written change
+logs. `Batchrun_R.bat` provides a non-interactive (`Rscript.exe`) alternative
+for scheduled/CI-style batch runs.
+
+## Practical considerations
+
+- Matching variables should be chosen based on clinical judgment (prognostic
+  factors + effect modifiers), not purely data-driven selection
+- Always report **ESS**: a large drop relative to the original sample size
+  signals poor population overlap and unstable estimates
+- Report covariate balance tables and KM curves **before and after** weighting
+  for transparency
+- Unanchored MAIC's "no unobserved confounding" assumption is strong — prefer
+  an anchored design whenever possible
+
+## Further reading
+
+- `vignette("introduction", package = "maicplus")`
+- `vignette("calculating_weights", package = "maicplus")`
+- `vignette("anchored_survival")` / `vignette("unanchored_survival")` / `*_binary`
+- GitHub: <https://github.com/hta-pharma/maicplus/>
+- Signorovitch et al. (2012), *Value in Health*
+- NICE DSU TSD 18 (Phillippo et al., 2016)
+- Case study: ICP-022 (orelabrutinib) studies 102+107 vs. ACE-LY-004
+  (acalabrutinib), Beijing Innocare Pharma Tech Co., Ltd, internal MAIC analysis
+
+# Thanks {.end-slide}
+
+![](assets/logo-end.png){.absolute top=200 left=330 width="400" height="320"}

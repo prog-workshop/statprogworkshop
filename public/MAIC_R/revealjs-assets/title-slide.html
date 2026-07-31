@@ -1,0 +1,53 @@
+<section id="$idprefix$title-slide"$for(title-slide-attributes/pairs)$ $it.key$="$it.value$"$endfor$>
+  <script>
+  window.addEventListener("DOMContentLoaded", () => {
+    function update_logo_classes(event) {
+      let logo = document.getElementsByClassName("slide-logo")[0];
+      let slide = Reveal.getCurrentSlide();
+
+      if (slide.id == "title-slide") { 
+        logo.classList.add("slide-logo-title");
+      } else {
+        logo.classList.remove("slide-logo-title");
+      }
+    }
+
+    Reveal.on('ready', update_logo_classes);
+    Reveal.on('slidechanged', update_logo_classes);
+  })
+  </script>
+  
+  <style>
+
+	.intro {
+	  margin-top: 0px;
+	  text-align: center;
+	  background: linear-gradient(to right, #FBD17C , #E85811);
+	}
+
+	</style>
+
+	<img class="title-logo" src="assets/logo-title.png" class="absolute" style="top: 0px; left: 380px; width: 300px;"></img>
+
+	<div class="intro">
+	  
+	  <h1> <span style="font-size: 50px; color:#002060; ">$title$</span> </h1>
+	  $if(subtitle)$
+	  <h2> <span style="font-size: 30px; color:#002060;">$subtitle$</span></h2>
+	  $endif$
+	</div>
+
+	<center>
+	  <hr>
+	  $for(author)$
+	  <p class="author">$author$</p>
+	  $endfor$
+	  $for(institute)$
+	  <p class="institute">$institute$</p>
+	  $endfor$
+	  $if(date)$
+	  <p class="date">$date$</p>
+	  $endif$
+	</center>
+
+</section>

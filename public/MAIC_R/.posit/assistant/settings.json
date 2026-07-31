@@ -1,0 +1,22 @@
+{
+  "permission": {
+    "external_directory": {
+      "c:/Users/xiangt/Documents/Git2/statprogworkshop/*": "allow",
+      "C:\\Users\\xiangt\\Documents\\01_Studies\\MAIC-102+107\\acala/*": "allow",
+      "*": "allow"
+    },
+    "executeCode": {
+      "*": "allow"
+    },
+    "bash": {
+      "quarto render *": "allow",
+      "tail *": "allow",
+      "powershell *": "allow",
+      "echo *": "allow"
+    },
+    "edit": {
+      "*.md": "allow",
+      "*.qmd": "allow"
+    }
+  }
+}
