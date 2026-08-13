@@ -12,11 +12,18 @@
       "quarto render *": "allow",
       "tail *": "allow",
       "powershell *": "allow",
-      "echo *": "allow"
+      "echo *": "allow",
+      "quarto *": "allow",
+      "powershell.exe *": "allow"
     },
     "edit": {
       "*.md": "allow",
-      "*.qmd": "allow"
+      "*.qmd": "allow",
+      "*.scss": "allow"
+    },
+    "webfetch": {
+      "https://rconsortium.github.io/*": "allow",
+      "https://github.com/*": "allow"
     }
   }
 }

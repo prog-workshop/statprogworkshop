@@ -99,7 +99,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="maicplus-intro_files/libs/revealjs/dist/theme/quarto-8dd97887b6c9ecb812ac7c0d6373e99c.css">
+  <link rel="stylesheet" href="maicplus-intro_files/libs/revealjs/dist/theme/quarto-5eb7a264ac9ef7500af0a7904bd3d90c.css">
   <link rel="stylesheet" href="styles/vs.css">
   <link href="maicplus-intro_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="maicplus-intro_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
@@ -240,7 +240,10 @@
 	<div class="intro">
 	  
 	  <h1> <span style="font-size: 50px; color:#002060; ">MAIC analysis using {maicplus}</span> </h1>
-	  	  <h2> <span style="font-size: 30px; color:#002060;">R programming for case study</span></h2>
+	  	  <!--<h2> <span style="font-size: 30px; color:#002060;">R programming for case study</span></h2>-->
+	  <h2 class="origin-title">
+		<span style="font-size:30px;color:#002060;">R programming for case study</span>
+	  </h2>
 	  	</div>
 
 	<center>
@@ -250,32 +253,19 @@
 	  	</center>
 
 </section>
-<section id="why-do-we-need-maic" class="slide level2">
-<h2>Why do we need MAIC?</h2>
-<p>In HTA (health technology assessment), we often need to compare two treatments that have never been compared head-to-head.</p>
-<ul>
-<li>If both trials share a common comparator arm (e.g.&nbsp;placebo), a standard indirect comparison (Bucher method) can be used</li>
-<li>But when the baseline characteristics of the two trial populations differ substantially, a naive indirect comparison can be biased</li>
-<li>Typically one trial provides <strong>individual patient data (IPD)</strong>, while the other only has <strong>published aggregate data (AgD)</strong></li>
-</ul>
-<p><strong>MAIC (Matching-Adjusted Indirect Comparison)</strong> re-weights the IPD patients so that their weighted baseline characteristics match those reported for the AgD trial, adjusting for population differences before comparing outcomes.</p>
-
-<aside><div>
-<p>Method from Signorovitch et al.&nbsp;(2012); systematically described in NICE DSU TSD 18</p>
-</div></aside></section>
 <section id="anchored-vs.-unanchored-maic" class="slide level2">
 <h2>Anchored vs.&nbsp;unanchored MAIC</h2>
 <div class="cell" data-reveal="true" data-layout-align="default">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href=""></a>flowchart LR</span>
-<span id="cb1-2"><a href=""></a>    A[IPD trial A vs C] --&gt;|common comparator C| B(Anchored MAIC)</span>
-<span id="cb1-3"><a href=""></a>    A --&gt;|no common comparator| C(Unanchored MAIC)</span>
-<span id="cb1-4"><a href=""></a>    B --&gt; D[Preserves randomization, less bias]</span>
-<span id="cb1-5"><a href=""></a>    C --&gt; E[Assumes all effect modifiers/prognostic factors are matched]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <p></p><figure class=""><p></p>
 <div>
-
+<pre class="mermaid mermaid-js">flowchart LR
+    A[IPD trial A vs C] --&gt;|common comparator C| B(Anchored MAIC)
+    A --&gt;|no common comparator| C(Unanchored MAIC)
+    B --&gt; D[Preserves randomization,&lt;br/&gt;less bias]
+    C --&gt; E[Assumes all effect&lt;br/&gt;modifiers / prognostic&lt;br/&gt;factors are matched]
+</pre>
 </div>
 <p></p></figure><p></p>
 </div>
@@ -286,52 +276,76 @@
 <li><strong>Unanchored</strong>: no common comparator; outcomes are compared directly after weighting, requiring a stronger and more easily violated assumption</li>
 </ul>
 </section>
-<section id="statistical-principle-brief" class="slide level2">
-<h2>Statistical principle (brief)</h2>
-<p>Each IPD patient’s weight is estimated in logistic form:</p>
-<p><span class="math display">\[w_i = \exp(x_i^T \hat\beta)\]</span></p>
-<p><span class="math inline">\(\hat\beta\)</span> is solved via the <strong>method of moments</strong>, so that the weighted mean of the IPD covariates exactly matches the means reported in the AgD:</p>
-<p><span class="math display">\[0=\sum_{i=1}^{n}(x_{i}-\bar{x}_{agg})\exp(x_{i}^{T}\hat{\beta})\]</span></p>
-<p>In practice, the IPD covariates are first <strong>centered</strong> (subtracting the AgD means) so the target mean becomes 0, and <span class="math inline">\(\beta\)</span> is then solved via convex optimization.</p>
-</section>
 <section id="from-maic-to-maicplus-a-brief-history" class="slide level2">
 <h2>From MAIC to maicplus: a brief history</h2>
 <div class="cell" data-reveal="true" data-layout-align="default">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb2-1"><a href=""></a>timeline</span>
-<span id="cb2-2"><a href=""></a>    title R packages for MAIC: from method to maicplus</span>
-<span id="cb2-3"><a href=""></a>    2012 : Signorovitch et al. publish the MAIC method (Value in Health)</span>
-<span id="cb2-4"><a href=""></a>    2016 : NICE DSU TSD 18 (Phillippo et al.) formalizes population-adjusted indirect comparison methodology</span>
-<span id="cb2-5"><a href=""></a>    2021 : Roche + BresMed release the open-source "MAIC" R package v0.1.0 (Bennett, Gregory, Smith, Birnie)</span>
-<span id="cb2-6"><a href=""></a>    2022 : Independent "maic" (R. Young, CRAN) and "maicChecks" (Yau &amp; Glimm, CRAN) packages published</span>
-<span id="cb2-7"><a href=""></a>    2023 : MSD and Roche launch "maicplus" under a new, vendor-neutral GitHub org (hta-pharma); announced via ISPOR SA83 abstract</span>
-<span id="cb2-8"><a href=""></a>    2024-25 : "maicplus" reaches CRAN; Roche archives "MAIC", pointing users to maicplus</span>
-<span id="cb2-9"><a href=""></a>    2025 : Independent study confirms maic / MAIC / maicplus reproduce identical NICE TSD 18 results</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <p></p><figure class=""><p></p>
 <div>
-
+<pre class="mermaid mermaid-js">timeline
+    title R packages for MAIC: from MAIC to maicplus
+    2021 : Roche + BresMed release the open-source "MAIC" R package v0.1.0 (Bennett, Gregory, Smith, Birnie)
+    2022 : Independent "maic" (R. Young, CRAN) and "maicChecks" (Yau &amp; Glimm, CRAN) packages published
+    2023 : MSD and Roche launch "maicplus" under a new, vendor-neutral GitHub org (hta-pharma); announced via ISPOR SA83 abstract
+    2024-25 : "maicplus" reaches CRAN; Roche archives "MAIC", pointing users to maicplus
+    2025 : Independent study confirms maic / MAIC / maicplus reproduce identical NICE TSD 18 results
+</pre>
 </div>
 <p></p></figure><p></p>
 </div>
 </div>
 </div>
 </section>
-<section id="why-the-field-consolidated-on-maicplus" class="slide level2">
-<h2>Why the field consolidated on <code>maicplus</code></h2>
+<section id="maic-analyses-in-the-biostatistics-department-20242026" class="slide level2">
+<h2>MAIC analyses in the biostatistics department (2024–2026)</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Year</th>
+<th>Comparison</th>
+<th>Endpoints</th>
+<th>Tooling &amp; practice</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2024</td>
+<td>r/r MCL: Intervention (pooled Pivotal A+B) vs Comparator (published single-arm)</td>
+<td>PFS (pooled and per-study), TEAE, lab parameters</td>
+<td><code>MAIC</code> (Roche) package</td>
+</tr>
+<tr class="even">
+<td>2025</td>
+<td>Intervention (Phase 3 study) vs Comparator (Ibru)</td>
+<td>PFS, OS, TEAE</td>
+<td><code>MAIC</code> (Roche) package; validation runs</td>
+</tr>
+<tr class="odd">
+<td>2026</td>
+<td>r/r MCL: Intervention (Pivotal A+B) vs Comparator (ACE-LY-004)</td>
+<td>ORR/CRR, PFS/OS, TEAE</td>
+<td><code>maicplus</code> package (this deck)</td>
+</tr>
+</tbody>
+</table>
+<p>All three projects are <strong>unanchored MAIC</strong>: individual patient data from our own studies re-weighted to match the published aggregate data of a comparator trial, with PFS/OS and safety as the recurring endpoints.</p>
+</section>
+<section id="how-our-maic-practice-has-evolved" class="slide level2">
+<h2>How our MAIC practice has evolved</h2>
 <ul>
-<li><strong>2012–2016</strong>: Signorovitch’s method and NICE DSU TSD 18 gave the field a shared statistical recipe, but everyone still coded it by hand</li>
-<li><strong>2021</strong>: Roche (with BresMed) open-sourced the first widely-used implementation, <code>MAIC</code>, on GitHub</li>
-<li><strong>2022</strong>: two more independent packages appeared — <code>maic</code> on CRAN, and <code>maicChecks</code>, focused on diagnosing when MAIC is numerically infeasible</li>
-<li>With several companies maintaining separate, overlapping codebases, MSD and Roche decided to <strong>pool engineering effort</strong> rather than keep duplicating it</li>
-<li><strong>2023</strong>: <code>maicplus</code> launched under <code>hta-pharma</code> — a shared, multi-sponsor GitHub org — explicitly framed as a way to combine expertise across companies into one well-engineered, CRAN-published, submission-ready tool</li>
-<li><strong>2024–2025</strong>: <code>maicplus</code> reached CRAN; Roche’s original <code>MAIC</code> repo was archived with a banner recommending <code>maicplus</code> instead</li>
-<li>A 2025 independent comparison found <code>maic</code>, <code>MAIC</code>, and <code>maicplus</code> all reproduce the NICE TSD 18 reference results identically — consolidation standardized <em>tooling</em>, not the underlying statistics</li>
+<li><strong>2024 — first project (r/r MCL)</strong>: PFS analysed pooled and per-study (Pivotal A/B), plus treatment-emergent AEs and lab parameters; built directly on the original <code>MAIC</code> package</li>
+<li><strong>2025 — broader scope</strong>: a second comparison (Phase 3 study vs.&nbsp;Ibru) adding OS alongside PFS and TEAE; introduced <strong>validation runs</strong> of the analysis code</li>
+<li><strong>2026 — current case study</strong>: the full pipeline in this deck — binary (ORR/CRR), time-to-event (PFS/OS) and safety — on <code>maicplus</code>, with ESS falling 129 → 50.2 after weighting</li>
+<li>Tooling and practice have matured across the three years: hand-coded <code>MAIC</code> scripts → <code>maicplus</code> workflows, plus reproducibility practices (logrx audit logs, RTF reporting, renv planned)</li>
 </ul>
-
-<aside><div>
-<p>Sources: github.com/Roche/MAIC (archive notice); github.com/hta-pharma/maicplus; Chen et al., SA83, <em>Value in Health</em> 2023;26(12):S558; Glimm &amp; Yau, <em>Pharmaceutical Statistics</em> 2022; independent comparison, <em>Value in Health</em> 2025</p>
-</div></aside></section>
+</section>
 <section id="introducing-the-maicplus-package" class="slide level2">
 <h2>Introducing the <code>maicplus</code> package</h2>
 <ul>
@@ -341,8 +355,8 @@
 <li>Covers the full pipeline: data preprocessing, weight estimation, diagnostics, and result reporting</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a><span class="fu">install.packages</span>(<span class="st">"maicplus"</span>)</span>
-<span id="cb3-2"><a href=""></a><span class="fu">library</span>(maicplus)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">install.packages</span>(<span class="st">"maicplus"</span>)</span>
+<span id="cb1-2"><a href=""></a><span class="fu">library</span>(maicplus)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="core-functions-at-a-glance" class="slide level2">
@@ -397,22 +411,77 @@
 <section id="end-to-end-workflow" class="slide level2">
 <h2>End-to-end workflow</h2>
 <div class="cell" data-reveal="true" data-layout-align="default">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb4-1"><a href=""></a>flowchart TD</span>
-<span id="cb4-2"><a href=""></a>    A[IPD: individual patient data] --&gt; B[Center covariates: center_ipd]</span>
-<span id="cb4-3"><a href=""></a>    C[AgD: published aggregate data] --&gt; B</span>
-<span id="cb4-4"><a href=""></a>    B --&gt; D[Estimate weights: estimate_weights]</span>
-<span id="cb4-5"><a href=""></a>    D --&gt; E[Check weights: check_weights / ESS]</span>
-<span id="cb4-6"><a href=""></a>    E --&gt; F[Weighted analysis: maic_anchored / maic_unanchored]</span>
-<span id="cb4-7"><a href=""></a>    F --&gt; G[Survival/HR or binary/OR results]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <p></p><figure class=""><p></p>
 <div>
-
+<pre class="mermaid mermaid-js">%%{init: {"themeVariables": {"fontSize": "32px"}, "flowchart": {"nodeSpacing": 30, "rankSpacing": 40}}}%%
+flowchart LR
+    A[IPD: individual&lt;br/&gt;patient data] --&gt; B[Center covariates:&lt;br/&gt;center_ipd]
+    C[AgD: published&lt;br/&gt;aggregate data] --&gt; B
+    B --&gt; D[Estimate weights:&lt;br/&gt;estimate_weights]
+    D --&gt; E[Check weights / ESS]
+    E --&gt; F[Weighted analysis:&lt;br/&gt;maic_anchored /&lt;br/&gt;maic_unanchored]
+    F --&gt; G[Survival or&lt;br/&gt;binary results]
+</pre>
 </div>
 <p></p></figure><p></p>
 </div>
 </div>
+</div>
+</section>
+<section id="preprocessing-weight-calculation" class="slide level2">
+<h2>Preprocessing &amp; weight calculation</h2>
+<p>The matching step needs IPD and AgD in a common format. <code>maicplus</code> provides:</p>
+<ul>
+<li><code>process_agd(raw_agd)</code> — convert published aggregate data (counts / proportions per covariate) into the wide format used downstream</li>
+<li><code>dummize_ipd(raw_ipd, dummize_cols, dummize_ref_level)</code> — create dummy variables for categorical IPD covariates</li>
+<li><code>center_ipd(ipd, agd)</code> — center IPD covariates on the AgD means, so the matching target becomes 0</li>
+<li><code>estimate_weights(data, centered_colnames, ...)</code> — solve the logistic weights by the method of moments (<code>BFGS</code> optimizer by default)</li>
+</ul>
+<p>Weight diagnostics:</p>
+<ul>
+<li><code>check_weights(weighted_data, processed_agd)</code> — confirm the weighted IPD means match the AgD target</li>
+<li><code>plot_weights_ggplot(weighted_data, bin_col, vline_col, main_title, bins)</code> — histogram of individual weights with ESS</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a>agd          <span class="ot">&lt;-</span> <span class="fu">process_agd</span>(raw_agd)</span>
+<span id="cb2-2"><a href=""></a>ipd_dummy    <span class="ot">&lt;-</span> <span class="fu">dummize_ipd</span>(raw_ipd, dummize_cols, dummize_ref_level)</span>
+<span id="cb2-3"><a href=""></a>ipd_centered <span class="ot">&lt;-</span> <span class="fu">center_ipd</span>(ipd_dummy, agd)</span>
+<span id="cb2-4"><a href=""></a>weighted     <span class="ot">&lt;-</span> <span class="fu">estimate_weights</span>(ipd_centered, centered_colnames)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="binary-analysis" class="slide level2">
+<h2>Binary analysis</h2>
+<p>Weighted binary endpoints (e.g.&nbsp;ORR, CRR) are compared with <code>maic_anchored()</code> / <code>maic_unanchored()</code> using <code>endpoint_type = "binary"</code>:</p>
+<ul>
+<li>Effect measures: <strong>OR</strong>, <strong>RR</strong>, <strong>RD</strong>; confidence intervals via bootstrap (<code>boot_ci_type</code>) or robust covariance (<code>binary_robust_cov_type = "HC3"</code>)</li>
+<li>The comparator arm enters as pseudo-IPD — <code>get_pseudo_ipd_binary()</code> reconstructs it from aggregated counts</li>
+<li><code>maic_anchored()</code> additionally takes <code>trt_common</code> for the shared comparator arm</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>result_orr <span class="ot">&lt;-</span> <span class="fu">maic_unanchored</span>(</span>
+<span id="cb3-2"><a href=""></a>  <span class="at">weights_object =</span> weighted, <span class="at">ipd =</span> adrs, <span class="at">pseudo_ipd =</span> pseudo_ipd,</span>
+<span id="cb3-3"><a href=""></a>  <span class="at">trt_ipd =</span> <span class="st">"Intervention"</span>, <span class="at">trt_agd =</span> <span class="st">"Comparator"</span>,</span>
+<span id="cb3-4"><a href=""></a>  <span class="at">endpoint_type =</span> <span class="st">"binary"</span>, <span class="at">eff_measure =</span> <span class="st">"OR"</span></span>
+<span id="cb3-5"><a href=""></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="survival-analysis" class="slide level2">
+<h2>Survival analysis</h2>
+<p>Weighted time-to-event endpoints (e.g.&nbsp;PFS, OS) use <code>endpoint_type = "tte"</code>:</p>
+<ul>
+<li>Reports the weighted <strong>HR</strong> (and median survival) with confidence interval; <code>time_scale</code> controls the time unit</li>
+<li><code>kmplot()</code> / <code>kmplot2()</code> — KM curves for weighted vs.&nbsp;unweighted IPD against the comparator pseudo-IPD, with number-at-risk tables</li>
+<li><code>basic_kmplot()</code> — plain ggplot KM helper</li>
+<li>PH-assumption diagnostics: <code>ph_diagplot()</code>, <code>ph_diagplot_lch()</code>, <code>ph_diagplot_schoenfeld()</code></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a>result_pfs <span class="ot">&lt;-</span> <span class="fu">maic_unanchored</span>(</span>
+<span id="cb4-2"><a href=""></a>  <span class="at">weights_object =</span> weighted, <span class="at">ipd =</span> adtte, <span class="at">pseudo_ipd =</span> pseudo_ipd,</span>
+<span id="cb4-3"><a href=""></a>  <span class="at">trt_ipd =</span> <span class="st">"Intervention"</span>, <span class="at">trt_agd =</span> <span class="st">"Comparator"</span>,</span>
+<span id="cb4-4"><a href=""></a>  <span class="at">endpoint_type =</span> <span class="st">"tte"</span>, <span class="at">eff_measure =</span> <span class="st">"HR"</span>, <span class="at">time_scale =</span> <span class="st">"month"</span></span>
+<span id="cb4-5"><a href=""></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="toy-example-package-syntax" class="slide level2">
@@ -444,19 +513,21 @@
 </div>
 <p>Same four calls — <code>center_ipd()</code> → <code>estimate_weights()</code> → <code>maic_unanchored()</code> / <code>maic_anchored()</code> — drive the real production analysis on the next slides.</p>
 </section>
-<section>
-<section id="case-study-icp-022-vs.-acalabrutinib" class="title-slide slide level1 end-slide center">
-<h1>Case study: ICP-022 vs.&nbsp;Acalabrutinib</h1>
-<p>An unanchored MAIC in relapsed/refractory mantle cell lymphoma</p>
+<section class="slide level2">
+
+<div class="appendix-title-container">
+<div class="appendix-title">
+Case study: An unanchored MAIC in relapsed/refractory mantle cell lymphoma
+</div>
+</div>
 </section>
 <section id="background" class="slide level2">
 <h2>Background</h2>
 <ul>
-<li><strong>Intervention (IPD)</strong>: Orelabrutinib (ICP-022), pooled studies <strong>102 + 107</strong>, full analysis set N = <strong>129</strong>, individual patient data available</li>
-<li><strong>Comparator (AgD)</strong>: Acalabrutinib, trial <strong>ACE-LY-004</strong>, N = <strong>124</strong>, only published aggregate results available</li>
+<li><strong>Intervention (IPD)</strong>: pooled studies <strong>Pivotal A + Pivotal B</strong>, full analysis set N = <strong>129</strong>, individual patient data available</li>
+<li><strong>Comparator (AgD)</strong>: trial <strong>ACE-LY-004</strong>, N = <strong>124</strong>, only published aggregate results available</li>
 <li><strong>Indication</strong>: relapsed/refractory mantle cell lymphoma (r/r MCL)</li>
 <li><strong>Design</strong>: <strong>unanchored MAIC</strong> — no shared comparator arm between the two trials</li>
-<li><strong>Sponsor</strong>: Beijing Innocare Pharma Tech Co., Ltd</li>
 </ul>
 <p>Endpoints assessed: ORR, CRR (binary), PFS, OS (time-to-event), and treatment-emergent adverse events (safety)</p>
 </section>
@@ -551,23 +622,17 @@
 <p><img data-src="assets/acala_weights.png" class="quarto-figure quarto-figure-center" height="480"></p>
 </figure>
 </div>
-<p>A right-skewed weight distribution with a handful of large weights is consistent with the ESS drop above — a small number of orelabrutinib patients are doing most of the work to reproduce the ACE-LY-004 population profile.</p>
+<p>A right-skewed weight distribution with a handful of large weights is consistent with the ESS drop above — a small number of intervention patients are doing most of the work to reproduce the ACE-LY-004 population profile.</p>
 </section>
 <section id="covariate-balance-beforeafter-weighting" class="slide level2">
 <h2>Covariate balance before/after weighting</h2>
-<p>Largest imbalances between unweighted orelabrutinib IPD and the Acalabrutinib target (<code>check_weights()</code>); after weighting, every covariate matches the AgD proportion exactly (method-of-moments guarantee):</p>
+<p>Largest imbalances between unweighted intervention IPD and the comparator target (<code>check_weights()</code>); after weighting, every covariate matches the AgD proportion exactly (method-of-moments guarantee):</p>
 <table class="caption-top">
-<colgroup>
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-</colgroup>
 <thead>
 <tr class="header">
 <th>Covariate</th>
-<th>Orelabrutinib (unweighted)</th>
-<th>Acalabrutinib (target)</th>
+<th>Intervention (unweighted)</th>
+<th>Comparator (target)</th>
 <th>Gap</th>
 </tr>
 </thead>
@@ -641,13 +706,13 @@
 <tbody>
 <tr class="odd">
 <td><strong>ORR</strong></td>
-<td>Orelabrutinib</td>
+<td>Intervention</td>
 <td>82.2% (106/129)</td>
 <td>76.9% (ESS-scaled)</td>
 </tr>
 <tr class="even">
 <td></td>
-<td>Acalabrutinib</td>
+<td>Comparator</td>
 <td>81.5% (101/124)</td>
 <td>81.5%</td>
 </tr>
@@ -659,13 +724,13 @@
 </tr>
 <tr class="even">
 <td><strong>CRR</strong></td>
-<td>Orelabrutinib</td>
+<td>Intervention</td>
 <td>38.8% (50/129)</td>
 <td>36.6% (ESS-scaled)</td>
 </tr>
 <tr class="odd">
 <td></td>
-<td>Acalabrutinib</td>
+<td>Comparator</td>
 <td>47.6% (59/124)</td>
 <td>47.6%</td>
 </tr>
@@ -684,15 +749,20 @@
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a>result_pfs <span class="ot">&lt;-</span> <span class="fu">maic_unanchored</span>(</span>
 <span id="cb11-2"><a href=""></a>  <span class="at">weights_object =</span> weighted_sat, <span class="at">ipd =</span> adtte_pfs, <span class="at">pseudo_ipd =</span> pseudo_ipd_pfs,</span>
-<span id="cb11-3"><a href=""></a>  <span class="at">trt_ipd =</span> <span class="st">"ICP-022"</span>, <span class="at">trt_agd =</span> <span class="st">"Comparator"</span>, <span class="at">normalize_weight =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb11-3"><a href=""></a>  <span class="at">trt_ipd =</span> <span class="st">"Intervention"</span>, <span class="at">trt_agd =</span> <span class="st">"Comparator"</span>, <span class="at">normalize_weight =</span> <span class="cn">TRUE</span>,</span>
 <span id="cb11-4"><a href=""></a>  <span class="at">endpoint_type =</span> <span class="st">"tte"</span>, <span class="at">eff_measure =</span> <span class="st">"HR"</span>, <span class="at">time_scale =</span> <span class="st">"month"</span></span>
 <span id="cb11-5"><a href=""></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>Endpoint</th>
-<th>Median (months) Orela / Acala</th>
+<th>Median (months) Intervention / Comparator</th>
 <th>HR (95% CI), p-value</th>
 </tr>
 </thead>
@@ -719,14 +789,14 @@
 </tr>
 </tbody>
 </table>
-<p>The unadjusted comparison numerically favored orelabrutinib on both PFS and OS; after adjusting for the 16 baseline covariates, both hazard ratios move toward (PFS) or past (OS) 1 and are not statistically significant — baseline imbalance was masking (not creating) an apparent advantage. OS is also still immature.</p>
+<p>The unadjusted comparison numerically favored the intervention on both PFS and OS; after adjusting for the 16 baseline covariates, both hazard ratios move toward (PFS) or past (OS) 1 and are not statistically significant — baseline imbalance was masking (not creating) an apparent advantage. OS is also still immature.</p>
 </section>
 <section id="pfs-kaplan-meier-curves" class="slide level2">
 <h2>PFS Kaplan-Meier curves</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href=""></a><span class="fu">kmplot2</span>(</span>
 <span id="cb12-2"><a href=""></a>  <span class="at">weights_object =</span> weighted_sat, <span class="at">tte_ipd =</span> adtte_pfs, <span class="at">tte_pseudo_ipd =</span> pseudo_ipd_pfs,</span>
-<span id="cb12-3"><a href=""></a>  <span class="at">trt_ipd =</span> <span class="st">"ICP-022"</span>, <span class="at">trt_agd =</span> <span class="st">"Comparator"</span>, <span class="at">normalize_weights =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb12-3"><a href=""></a>  <span class="at">trt_ipd =</span> <span class="st">"Intervention"</span>, <span class="at">trt_agd =</span> <span class="st">"Comparator"</span>, <span class="at">normalize_weights =</span> <span class="cn">TRUE</span>,</span>
 <span id="cb12-4"><a href=""></a>  <span class="at">endpoint_name =</span> <span class="st">"Progression-free Survival"</span>, <span class="at">time_scale =</span> <span class="st">"month"</span>, <span class="at">censor =</span> <span class="cn">TRUE</span></span>
 <span id="cb12-5"><a href=""></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -735,7 +805,7 @@
 <p><img data-src="assets/acala_km_pfs.png" class="quarto-figure quarto-figure-center" height="480"></p>
 </figure>
 </div>
-<p>The weighted orelabrutinib curve (light green) sits close to the unweighted curve (dark green) through mid-follow-up, then tracks slightly below the Acalabrutinib curve (purple) — consistent with the HR crossing 1 after weighting.</p>
+<p>The weighted intervention curve (light green) sits close to the unweighted curve (dark green) through mid-follow-up, then tracks slightly below the comparator curve (purple) — consistent with the HR crossing 1 after weighting.</p>
 </section>
 <section id="safety-treatment-emergent-adverse-events" class="slide level2">
 <h2>Safety: treatment-emergent adverse events</h2>
@@ -750,8 +820,8 @@
 <thead>
 <tr class="header">
 <th>AE category</th>
-<th>Acalabrutinib (AgD)</th>
-<th>Orelabrutinib (unweighted)</th>
+<th>Comparator (AgD)</th>
+<th>Intervention (unweighted)</th>
 <th>OR (unweighted)</th>
 </tr>
 </thead>
@@ -794,7 +864,7 @@
 <h2>Case study takeaways</h2>
 <ul>
 <li>Baseline imbalance (esp.&nbsp;age, prior bortezomib, prior treatment lines) meaningfully changed the unadjusted vs.&nbsp;adjusted efficacy comparison</li>
-<li>After MAIC weighting, <strong>no endpoint</strong> (ORR, CRR, PFS, OS) showed a statistically significant difference between orelabrutinib and acalabrutinib</li>
+<li>After MAIC weighting, <strong>no endpoint</strong> (ORR, CRR, PFS, OS) showed a statistically significant difference between the intervention and comparator</li>
 <li>ESS fell from 129 to ~50 (−61%) — a reminder that adjusted estimates carry substantially more uncertainty than the nominal sample size implies</li>
 <li>Safety appears broadly comparable, consistent with a shared BTK-inhibitor class profile</li>
 <li>As an <strong>unanchored</strong> analysis, results rely on the strong assumption that all relevant effect modifiers/prognostic factors were captured among the 16 matching covariates</li>
@@ -830,6 +900,21 @@ maic-batch-with-log.R → batch runner with logrx audit logs</code></pre>
 <aside><div>
 <p>This project currently pins package versions informally (fixed R version, logged sessionInfo per run via <code>logrx</code>) but does not yet have a <code>renv.lock</code> — adding <code>renv::init()</code> + <code>renv::snapshot()</code> would let the whole <code>acala/</code> pipeline be restored on a new machine with one command</p>
 </div></aside></section>
+<section id="renv-in-the-r-pilot-submission" class="slide level2">
+<h2>renv in the R pilot submission</h2>
+<p>The R Consortium <strong>R Submissions Working Group</strong> runs FDA submission pilots to test whether R-based regulatory submissions are reproducible and reviewable. <strong>Pilot 3</strong> (submitted to FDA Aug 2023, re-submitted Apr 2024) generated the ADaMs and TLFs entirely in R, and made the R environment part of the submission using <strong><code>{renv}</code></strong>:</p>
+<ul>
+<li>Open-source packages and the pilot’s proprietary R package (installed from git) were captured in a <code>renv.lock</code> via <code>renv::snapshot()</code></li>
+<li>The <code>renv.lock</code> was included in Module 5 of the eCTD package alongside the analysis programs, so reviewers could rebuild the exact environment with <code>renv::restore()</code> and re-run the analyses</li>
+<li>Reproducing the environment was an explicit evaluation criterion: FDA staff reproduced the results by restoring the R environment and retrieving both open-source and proprietary packages</li>
+</ul>
+<p>References:</p>
+<ul>
+<li><a href="https://rconsortium.github.io/submissions-wg/pilot3.html" class="uri">https://rconsortium.github.io/submissions-wg/pilot3.html</a></li>
+<li><a href="https://github.com/RConsortium/submissions-pilot3-adam-to-fda" class="uri">https://github.com/RConsortium/submissions-pilot3-adam-to-fda</a></li>
+</ul>
+<p>This is the same <code>renv</code> + lockfile practice our project follows (and the <code>acala/</code> pipeline should adopt next).</p>
+</section>
 <section id="rtf-reporting-with-officer-flextable" class="slide level2">
 <h2>RTF reporting with <code>officer</code> + <code>flextable</code></h2>
 <p>Every table script builds a <code>flextable</code>, then wraps it with a study-standard header/footer via <code>officer::block_list()</code> before writing to RTF:</p>
@@ -927,10 +1012,9 @@ maic-batch-with-log.R → batch runner with logrx audit logs</code></pre>
 <section id="practical-considerations" class="slide level2">
 <h2>Practical considerations</h2>
 <ul>
-<li>Matching variables should be chosen based on clinical judgment (prognostic factors + effect modifiers), not purely data-driven selection</li>
-<li>Always report <strong>ESS</strong>: a large drop relative to the original sample size signals poor population overlap and unstable estimates</li>
-<li>Report covariate balance tables and KM curves <strong>before and after</strong> weighting for transparency</li>
-<li>Unanchored MAIC’s “no unobserved confounding” assumption is strong — prefer an anchored design whenever possible</li>
+<li><strong>Code flexibly for baseline adjustment</strong>: write the analysis scripts so the matching-covariate list and other baseline settings can be changed without rewriting the pipeline</li>
+<li><strong>Discuss ESS early at dry run</strong>: once the effective sample size after weighting is available, raise it with the statistician promptly — a large ESS drop is a key signal about population overlap and estimate stability</li>
+<li><strong>Choose R and package versions deliberately, and reproduce across environments</strong>: pin the R version and R package versions (e.g.&nbsp;a <code>renv</code> lockfile) and re-run the analysis in multiple terminals/environments to confirm the results are reproducible</li>
 </ul>
 </section>
 <section id="further-reading" class="slide level2">
@@ -942,9 +1026,9 @@ maic-batch-with-log.R → batch runner with logrx audit logs</code></pre>
 <li>GitHub: <a href="https://github.com/hta-pharma/maicplus/" class="uri">https://github.com/hta-pharma/maicplus/</a></li>
 <li>Signorovitch et al.&nbsp;(2012), <em>Value in Health</em></li>
 <li>NICE DSU TSD 18 (Phillippo et al., 2016)</li>
-<li>Case study: ICP-022 (orelabrutinib) studies 102+107 vs.&nbsp;ACE-LY-004 (acalabrutinib), Beijing Innocare Pharma Tech Co., Ltd, internal MAIC analysis</li>
+<li>Case study: Intervention (studies Pivotal(A + B)) vs.&nbsp;Comparator (ACE-LY-004), internal MAIC analysis</li>
 </ul>
-</section></section>
+</section>
 <section id="thanks" class="title-slide slide level1 end-slide center">
 <h1>Thanks</h1>
 <p><img data-src="assets/logo-end.png" class="absolute" style="top: 200px; left: 330px; width: 400px; height: 320px; "></p>

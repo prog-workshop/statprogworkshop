@@ -44,8 +44,29 @@ execute:
 End slide convention: `# Thanks {.end-slide}` followed by
 `![](assets/logo-end.png){.absolute top=200 left=330 width="400" height="320"}`.
 
+Chapter divider pages: when adding a new chapter/section divider (e.g. the case
+study opener), do NOT use a raw `#`/`##` header or the default title display.
+Copy the Case study divider page exactly, using the `appendix-title` container
+pattern (styled in `title-style.scss`):
+
+```html
+<div class="appendix-title-container">
+  <div class="appendix-title">Case study: An unanchored MAIC in relapsed/refractory mantle cell lymphoma</div>
+</div>
+```
+
 SAS code chunks use `` ```{class='SAS'} `` for highlight.js styling instead of a real
 executable knitr engine.
+
+Mermaid gotcha (verified on Quarto 1.9.38): mermaid diagrams must use
+`` ```{mermaid} `` chunks — a plain `` ```mermaid `` fence only renders in
+preview, not in the built revealjs HTML. Also, global `execute: echo: true`
+/ `eval: false` both break mermaid: `eval: false` silently skips diagram
+generation (empty figure boxes) and `echo: true` shows the mermaid source as
+plain code blocks instead of diagrams. Keep both out of the header and set
+`#| echo: true` / `#| eval: false` on R chunks individually (mermaid chunks
+do not parse `#|` chunk options in this Quarto version). Diagrams render
+client-side via `maicplus-intro_files/libs/quarto-diagram/mermaid.min.js`.
 
 ## `maicplus` package (used in maicplus-intro.qmd)
 
@@ -90,6 +111,10 @@ package's toy demo data:
   `assets/acala_weights.png` (weight distribution) and `assets/acala_km_pfs.png`
   (PFS KM curves) for use in the slides — regenerate these by re-sourcing
   `maic-start.R` from the `acala` project directory if the underlying data changes.
+- The slide version of the KM plot is anonymized: call `kmplot2()` with
+  `trt_ipd = "Intervention"` AND relabel the IPD `ARM` column to `"Intervention"`
+  first (kmplot2 filters the IPD data by `ARM == trt_ipd`). The project's own
+  `maic-f1-km-pfs.R` still uses `"ICP-022"` for its RTF output.
 - Slides also cover the project's reporting/audit tooling: `officer` +
   `flextable` for RTF tables/figures (`set_header_labels()`/`add_header_row()`
   for the "Without/After adjustment" column groups, `block_list()`-built
