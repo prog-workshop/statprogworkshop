@@ -21,21 +21,6 @@ revealjs-plugins:
   - pointer
 ---
 
-## Anchored vs. unanchored MAIC
-
-```{mermaid}
-flowchart LR
-    A[IPD trial A vs C] -->|common comparator C| B(Anchored MAIC)
-    A -->|no common comparator| C(Unanchored MAIC)
-    B --> D[Preserves randomization,<br/>less bias]
-    C --> E[Assumes all effect<br/>modifiers / prognostic<br/>factors are matched]
-```
-
-- **Anchored**: both trials share a common comparator arm; compares $HR_{AB}$,
-  preserves the benefit of within-trial randomization — the preferred approach
-- **Unanchored**: no common comparator; outcomes are compared directly after
-  weighting, requiring a stronger and more easily violated assumption
-
 ## From MAIC to maicplus: a brief history
 
 ```{mermaid}
@@ -53,7 +38,7 @@ timeline
 | Year | Comparison | Endpoints | Tooling & practice |
 |---|---|---|---|
 | 2024 | r/r MCL: Intervention (pooled Pivotal A+B) vs Comparator (published single-arm) | PFS (pooled and per-study), TEAE, lab parameters | `MAIC` (Roche) package |
-| 2025 | Intervention (Phase 3 study) vs Comparator (Ibru) | PFS, OS, TEAE | `MAIC` (Roche) package; validation runs |
+| 2025 | CLL/SLL: Intervention (Phase 3 study) vs Comparator (Ibru) | PFS, OS, TEAE | `MAIC` (Roche) package; validation runs |
 | 2026 | r/r MCL: Intervention (Pivotal A+B) vs Comparator (ACE-LY-004) | ORR/CRR, PFS/OS, TEAE | `maicplus` package (this deck) |
 
 All three projects are **unanchored MAIC**: individual patient data from our
@@ -168,8 +153,6 @@ Weighted time-to-event endpoints (e.g. PFS, OS) use `endpoint_type = "tte"`:
 - `kmplot()` / `kmplot2()` — KM curves for weighted vs. unweighted IPD against
   the comparator pseudo-IPD, with number-at-risk tables
 - `basic_kmplot()` — plain ggplot KM helper
-- PH-assumption diagnostics: `ph_diagplot()`, `ph_diagplot_lch()`,
-  `ph_diagplot_schoenfeld()`
 
 ```{r}
 #| eval: false
@@ -392,20 +375,6 @@ same unanchored binary workflow, looped per term in `maic-t4-ae.R`:
 No individual AE term showed a statistically significant difference; full
 per-term OR/RD (before and after weighting) reported in `t-4-ae.rtf`.
 
-## Case study takeaways
-
-- Baseline imbalance (esp. age, prior bortezomib, prior treatment lines)
-  meaningfully changed the unadjusted vs. adjusted efficacy comparison
-- After MAIC weighting, **no endpoint** (ORR, CRR, PFS, OS) showed a
-  statistically significant difference between the intervention and comparator
-- ESS fell from 129 to ~50 (−61%) — a reminder that adjusted estimates carry
-  substantially more uncertainty than the nominal sample size implies
-- Safety appears broadly comparable, consistent with a shared BTK-inhibitor
-  class profile
-- As an **unanchored** analysis, results rely on the strong assumption that all
-  relevant effect modifiers/prognostic factors were captured among the 16
-  matching covariates
-
 ## Reproducibility & engineering practices
 
 This project follows a modular, auditable analysis structure:
@@ -576,7 +545,7 @@ for scheduled/CI-style batch runs.
 - **Discuss ESS early at dry run**: once the effective sample size after
   weighting is available, raise it with the statistician promptly — a large
   ESS drop is a key signal about population overlap and estimate stability
-- **Choose R and package versions deliberately, and reproduce across
+- **Choose R and package versions with caution, and reproduce across
   environments**: pin the R version and R package versions (e.g. a `renv`
   lockfile) and re-run the analysis in multiple terminals/environments to
   confirm the results are reproducible
@@ -587,10 +556,8 @@ for scheduled/CI-style batch runs.
 - `vignette("calculating_weights", package = "maicplus")`
 - `vignette("anchored_survival")` / `vignette("unanchored_survival")` / `*_binary`
 - GitHub: <https://github.com/hta-pharma/maicplus/>
-- Signorovitch et al. (2012), *Value in Health*
-- NICE DSU TSD 18 (Phillippo et al., 2016)
-- Case study: Intervention (studies Pivotal(A + B)) vs. Comparator (ACE-LY-004),
-  internal MAIC analysis
+- [logrx](https://pharmaverse.github.io/logrx/)
+- [Clinical Reports with R](https://statprogworkshop.onrender.com/Clinical%20Report%20with%20R/Clinical_Report_With_R.html)
 
 # Thanks {.end-slide}
 
