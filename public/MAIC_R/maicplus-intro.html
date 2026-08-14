@@ -6,11 +6,11 @@
 <script src="maicplus-intro_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="maicplus-intro_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="maicplus-intro_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="maicplus-intro_files/libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.10.18">
+<link href="maicplus-intro_files/libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.37">
 
   <meta name="author" content="Tao Xiang">
-  <meta name="dcterms.date" content="2026-08-07">
+  <meta name="dcterms.date" content="2026-08-14">
   <title>MAIC analysis using {maicplus}</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -21,13 +21,10 @@
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
     */
+    code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: 1.5em;}
-    div.column{flex: auto;}
-    @media screen {
-    div.columns{gap: min(4vw, 1.5em);}
-    div.column{overflow-x: auto;}
-    }
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
@@ -252,7 +249,7 @@
 	<center>
 	  <hr>
 	  	  <p class="author">Tao Xiang</p>
-	  	  	  	  <p class="date">2026-08-07</p>
+	  	  	  	  <p class="date">2026-08-14</p>
 	  	</center>
 
 </section>
@@ -335,8 +332,8 @@
 <li>Covers the full pipeline: data preprocessing, weight estimation, diagnostics, and result reporting</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="" aria-label="1"></a><span class="fu">install.packages</span>(<span class="st">"maicplus"</span>)</span>
-<span id="cb1-2"><a href="" aria-label="2"></a><span class="fu">library</span>(maicplus)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">install.packages</span>(<span class="st">"maicplus"</span>)</span>
+<span id="cb1-2"><a href=""></a><span class="fu">library</span>(maicplus)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="core-functions-at-a-glance" class="slide level2">
@@ -425,10 +422,10 @@ flowchart LR
 <li><code>plot_weights_ggplot(weighted_data, bin_col, vline_col, main_title, bins)</code> — histogram of individual weights with ESS</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="" aria-label="1"></a>agd          <span class="ot">&lt;-</span> <span class="fu">process_agd</span>(raw_agd)</span>
-<span id="cb2-2"><a href="" aria-label="2"></a>ipd_dummy    <span class="ot">&lt;-</span> <span class="fu">dummize_ipd</span>(raw_ipd, dummize_cols, dummize_ref_level)</span>
-<span id="cb2-3"><a href="" aria-label="3"></a>ipd_centered <span class="ot">&lt;-</span> <span class="fu">center_ipd</span>(ipd_dummy, agd)</span>
-<span id="cb2-4"><a href="" aria-label="4"></a>weighted     <span class="ot">&lt;-</span> <span class="fu">estimate_weights</span>(ipd_centered, centered_colnames)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a>agd          <span class="ot">&lt;-</span> <span class="fu">process_agd</span>(raw_agd)</span>
+<span id="cb2-2"><a href=""></a>ipd_dummy    <span class="ot">&lt;-</span> <span class="fu">dummize_ipd</span>(raw_ipd, dummize_cols, dummize_ref_level)</span>
+<span id="cb2-3"><a href=""></a>ipd_centered <span class="ot">&lt;-</span> <span class="fu">center_ipd</span>(ipd_dummy, agd)</span>
+<span id="cb2-4"><a href=""></a>weighted     <span class="ot">&lt;-</span> <span class="fu">estimate_weights</span>(ipd_centered, centered_colnames)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="binary-analysis" class="slide level2">
@@ -440,11 +437,11 @@ flowchart LR
 <li><code>maic_anchored()</code> additionally takes <code>trt_common</code> for the shared comparator arm</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="" aria-label="1"></a>result_orr <span class="ot">&lt;-</span> <span class="fu">maic_unanchored</span>(</span>
-<span id="cb3-2"><a href="" aria-label="2"></a>  <span class="at">weights_object =</span> weighted, <span class="at">ipd =</span> adrs, <span class="at">pseudo_ipd =</span> pseudo_ipd,</span>
-<span id="cb3-3"><a href="" aria-label="3"></a>  <span class="at">trt_ipd =</span> <span class="st">"Intervention"</span>, <span class="at">trt_agd =</span> <span class="st">"Comparator"</span>,</span>
-<span id="cb3-4"><a href="" aria-label="4"></a>  <span class="at">endpoint_type =</span> <span class="st">"binary"</span>, <span class="at">eff_measure =</span> <span class="st">"OR"</span></span>
-<span id="cb3-5"><a href="" aria-label="5"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>result_orr <span class="ot">&lt;-</span> <span class="fu">maic_unanchored</span>(</span>
+<span id="cb3-2"><a href=""></a>  <span class="at">weights_object =</span> weighted, <span class="at">ipd =</span> adrs, <span class="at">pseudo_ipd =</span> pseudo_ipd,</span>
+<span id="cb3-3"><a href=""></a>  <span class="at">trt_ipd =</span> <span class="st">"Intervention"</span>, <span class="at">trt_agd =</span> <span class="st">"Comparator"</span>,</span>
+<span id="cb3-4"><a href=""></a>  <span class="at">endpoint_type =</span> <span class="st">"binary"</span>, <span class="at">eff_measure =</span> <span class="st">"OR"</span></span>
+<span id="cb3-5"><a href=""></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="survival-analysis" class="slide level2">
@@ -456,22 +453,22 @@ flowchart LR
 <li><code>basic_kmplot()</code> — plain ggplot KM helper</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="" aria-label="1"></a>result_pfs <span class="ot">&lt;-</span> <span class="fu">maic_unanchored</span>(</span>
-<span id="cb4-2"><a href="" aria-label="2"></a>  <span class="at">weights_object =</span> weighted, <span class="at">ipd =</span> adtte, <span class="at">pseudo_ipd =</span> pseudo_ipd,</span>
-<span id="cb4-3"><a href="" aria-label="3"></a>  <span class="at">trt_ipd =</span> <span class="st">"Intervention"</span>, <span class="at">trt_agd =</span> <span class="st">"Comparator"</span>,</span>
-<span id="cb4-4"><a href="" aria-label="4"></a>  <span class="at">endpoint_type =</span> <span class="st">"tte"</span>, <span class="at">eff_measure =</span> <span class="st">"HR"</span>, <span class="at">time_scale =</span> <span class="st">"month"</span></span>
-<span id="cb4-5"><a href="" aria-label="5"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a>result_pfs <span class="ot">&lt;-</span> <span class="fu">maic_unanchored</span>(</span>
+<span id="cb4-2"><a href=""></a>  <span class="at">weights_object =</span> weighted, <span class="at">ipd =</span> adtte, <span class="at">pseudo_ipd =</span> pseudo_ipd,</span>
+<span id="cb4-3"><a href=""></a>  <span class="at">trt_ipd =</span> <span class="st">"Intervention"</span>, <span class="at">trt_agd =</span> <span class="st">"Comparator"</span>,</span>
+<span id="cb4-4"><a href=""></a>  <span class="at">endpoint_type =</span> <span class="st">"tte"</span>, <span class="at">eff_measure =</span> <span class="st">"HR"</span>, <span class="at">time_scale =</span> <span class="st">"month"</span></span>
+<span id="cb4-5"><a href=""></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="toy-example-package-syntax" class="slide level2">
 <h2>Toy example: package syntax</h2>
 <p>Before the real case study, a quick look at the syntax using <code>maicplus</code>’s built-in demo data:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="" aria-label="1"></a><span class="fu">library</span>(maicplus)</span>
-<span id="cb5-2"><a href="" aria-label="2"></a><span class="fu">data</span>(<span class="st">"adsl_sat"</span>)       <span class="co"># IPD baseline data (trial A)</span></span>
-<span id="cb5-3"><a href="" aria-label="3"></a><span class="fu">data</span>(<span class="st">"adtte_sat"</span>)      <span class="co"># IPD survival data (trial A)</span></span>
-<span id="cb5-4"><a href="" aria-label="4"></a><span class="fu">data</span>(<span class="st">"pseudo_ipd_sat"</span>) <span class="co"># Pseudo IPD reconstructed from AgD (trial B, digitized KM)</span></span>
-<span id="cb5-5"><a href="" aria-label="5"></a><span class="fu">str</span>(adsl_sat[, <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a><span class="fu">library</span>(maicplus)</span>
+<span id="cb5-2"><a href=""></a><span class="fu">data</span>(<span class="st">"adsl_sat"</span>)       <span class="co"># IPD baseline data (trial A)</span></span>
+<span id="cb5-3"><a href=""></a><span class="fu">data</span>(<span class="st">"adtte_sat"</span>)      <span class="co"># IPD survival data (trial A)</span></span>
+<span id="cb5-4"><a href=""></a><span class="fu">data</span>(<span class="st">"pseudo_ipd_sat"</span>) <span class="co"># Pseudo IPD reconstructed from AgD (trial B, digitized KM)</span></span>
+<span id="cb5-5"><a href=""></a><span class="fu">str</span>(adsl_sat[, <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>'data.frame':   500 obs. of  6 variables:
  $ USUBJID: int  1 2 3 4 5 6 7 8 9 10 ...
@@ -483,12 +480,12 @@ flowchart LR
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="" aria-label="1"></a>ipd_centered <span class="ot">&lt;-</span> <span class="fu">center_ipd</span>(<span class="at">ipd =</span> ipd, <span class="at">agd =</span> agd)</span>
-<span id="cb7-2"><a href="" aria-label="2"></a>weighted <span class="ot">&lt;-</span> <span class="fu">estimate_weights</span>(<span class="at">data =</span> ipd_centered, <span class="at">centered_colnames =</span> centered_colnames)</span>
-<span id="cb7-3"><a href="" aria-label="3"></a>result <span class="ot">&lt;-</span> <span class="fu">maic_unanchored</span>(</span>
-<span id="cb7-4"><a href="" aria-label="4"></a>  <span class="at">weights_object =</span> weighted, <span class="at">ipd =</span> adtte_sat, <span class="at">pseudo_ipd =</span> pseudo_ipd_sat,</span>
-<span id="cb7-5"><a href="" aria-label="5"></a>  <span class="at">trt_ipd =</span> <span class="st">"A"</span>, <span class="at">trt_agd =</span> <span class="st">"B"</span>, <span class="at">endpoint_type =</span> <span class="st">"tte"</span>, <span class="at">eff_measure =</span> <span class="st">"HR"</span></span>
-<span id="cb7-6"><a href="" aria-label="6"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a>ipd_centered <span class="ot">&lt;-</span> <span class="fu">center_ipd</span>(<span class="at">ipd =</span> ipd, <span class="at">agd =</span> agd)</span>
+<span id="cb7-2"><a href=""></a>weighted <span class="ot">&lt;-</span> <span class="fu">estimate_weights</span>(<span class="at">data =</span> ipd_centered, <span class="at">centered_colnames =</span> centered_colnames)</span>
+<span id="cb7-3"><a href=""></a>result <span class="ot">&lt;-</span> <span class="fu">maic_unanchored</span>(</span>
+<span id="cb7-4"><a href=""></a>  <span class="at">weights_object =</span> weighted, <span class="at">ipd =</span> adtte_sat, <span class="at">pseudo_ipd =</span> pseudo_ipd_sat,</span>
+<span id="cb7-5"><a href=""></a>  <span class="at">trt_ipd =</span> <span class="st">"A"</span>, <span class="at">trt_agd =</span> <span class="st">"B"</span>, <span class="at">endpoint_type =</span> <span class="st">"tte"</span>, <span class="at">eff_measure =</span> <span class="st">"HR"</span></span>
+<span id="cb7-6"><a href=""></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Same four calls — <code>center_ipd()</code> → <code>estimate_weights()</code> → <code>maic_unanchored()</code> / <code>maic_anchored()</code> — drive the real production analysis on the next slides.</p>
 </section>
@@ -540,28 +537,28 @@ Case study: An unanchored MAIC in relapsed/refractory mantle cell lymphoma
 </tbody>
 </table>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="" aria-label="1"></a>base_list <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb8-2"><a href="" aria-label="2"></a>  <span class="at">AGECAT   =</span> <span class="fu">list</span>(<span class="at">label =</span> <span class="st">"Age &gt;=65"</span>, <span class="at">count =</span> <span class="dv">80</span>),</span>
-<span id="cb8-3"><a href="" aria-label="3"></a>  <span class="at">SEX_MALE =</span> <span class="fu">list</span>(<span class="at">label =</span> <span class="st">"Sex: male"</span>, <span class="at">count =</span> <span class="dv">99</span>),</span>
-<span id="cb8-4"><a href="" aria-label="4"></a>  <span class="at">ECOG_G1  =</span> <span class="fu">list</span>(<span class="at">label =</span> <span class="st">"ECOG PS: &gt;1"</span>, <span class="at">count =</span> <span class="dv">9</span>),</span>
-<span id="cb8-5"><a href="" aria-label="5"></a>  <span class="co"># ... 13 more covariates, each with the AgD responder count</span></span>
-<span id="cb8-6"><a href="" aria-label="6"></a>  <span class="at">LENALIDOMIDE =</span> <span class="fu">list</span>(<span class="at">label =</span> <span class="st">"Prior Lenalidomide"</span>, <span class="at">count =</span> <span class="dv">9</span>)</span>
-<span id="cb8-7"><a href="" aria-label="7"></a>)</span>
-<span id="cb8-8"><a href="" aria-label="8"></a><span class="co"># AgD proportions built from base_list$count / comparator_total (124)</span></span>
-<span id="cb8-9"><a href="" aria-label="9"></a>agd <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">c</span>(<span class="fu">list</span>(<span class="at">N =</span> <span class="dv">124</span>, <span class="at">ARM =</span> <span class="st">"Comparator"</span>),</span>
-<span id="cb8-10"><a href="" aria-label="10"></a>  <span class="fu">setNames</span>(<span class="fu">lapply</span>(base_list, \(x) x<span class="sc">$</span>count <span class="sc">/</span> <span class="dv">124</span>), <span class="fu">paste0</span>(<span class="fu">names</span>(base_list), <span class="st">"_PROP"</span>))))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a>base_list <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb8-2"><a href=""></a>  <span class="at">AGECAT   =</span> <span class="fu">list</span>(<span class="at">label =</span> <span class="st">"Age &gt;=65"</span>, <span class="at">count =</span> <span class="dv">80</span>),</span>
+<span id="cb8-3"><a href=""></a>  <span class="at">SEX_MALE =</span> <span class="fu">list</span>(<span class="at">label =</span> <span class="st">"Sex: male"</span>, <span class="at">count =</span> <span class="dv">99</span>),</span>
+<span id="cb8-4"><a href=""></a>  <span class="at">ECOG_G1  =</span> <span class="fu">list</span>(<span class="at">label =</span> <span class="st">"ECOG PS: &gt;1"</span>, <span class="at">count =</span> <span class="dv">9</span>),</span>
+<span id="cb8-5"><a href=""></a>  <span class="co"># ... 13 more covariates, each with the AgD responder count</span></span>
+<span id="cb8-6"><a href=""></a>  <span class="at">LENALIDOMIDE =</span> <span class="fu">list</span>(<span class="at">label =</span> <span class="st">"Prior Lenalidomide"</span>, <span class="at">count =</span> <span class="dv">9</span>)</span>
+<span id="cb8-7"><a href=""></a>)</span>
+<span id="cb8-8"><a href=""></a><span class="co"># AgD proportions built from base_list$count / comparator_total (124)</span></span>
+<span id="cb8-9"><a href=""></a>agd <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">c</span>(<span class="fu">list</span>(<span class="at">N =</span> <span class="dv">124</span>, <span class="at">ARM =</span> <span class="st">"Comparator"</span>),</span>
+<span id="cb8-10"><a href=""></a>  <span class="fu">setNames</span>(<span class="fu">lapply</span>(base_list, \(x) x<span class="sc">$</span>count <span class="sc">/</span> <span class="dv">124</span>), <span class="fu">paste0</span>(<span class="fu">names</span>(base_list), <span class="st">"_PROP"</span>))))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="weight-estimation-effective-sample-size" class="slide level2">
 <h2>Weight estimation &amp; effective sample size</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="" aria-label="1"></a>ipd_centered <span class="ot">&lt;-</span> <span class="fu">center_ipd</span>(<span class="at">ipd =</span> ipd, <span class="at">agd =</span> agd)</span>
-<span id="cb9-2"><a href="" aria-label="2"></a></span>
-<span id="cb9-3"><a href="" aria-label="3"></a>weighted_sat <span class="ot">&lt;-</span> <span class="fu">estimate_weights</span>(</span>
-<span id="cb9-4"><a href="" aria-label="4"></a>  <span class="at">data =</span> ipd_centered,</span>
-<span id="cb9-5"><a href="" aria-label="5"></a>  <span class="at">centered_colnames =</span> <span class="fu">paste0</span>(<span class="fu">names</span>(base_list), <span class="st">"_CENTERED"</span>)</span>
-<span id="cb9-6"><a href="" aria-label="6"></a>)</span>
-<span id="cb9-7"><a href="" aria-label="7"></a>weighted_sat<span class="sc">$</span>ess</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a>ipd_centered <span class="ot">&lt;-</span> <span class="fu">center_ipd</span>(<span class="at">ipd =</span> ipd, <span class="at">agd =</span> agd)</span>
+<span id="cb9-2"><a href=""></a></span>
+<span id="cb9-3"><a href=""></a>weighted_sat <span class="ot">&lt;-</span> <span class="fu">estimate_weights</span>(</span>
+<span id="cb9-4"><a href=""></a>  <span class="at">data =</span> ipd_centered,</span>
+<span id="cb9-5"><a href=""></a>  <span class="at">centered_colnames =</span> <span class="fu">paste0</span>(<span class="fu">names</span>(base_list), <span class="st">"_CENTERED"</span>)</span>
+<span id="cb9-6"><a href=""></a>)</span>
+<span id="cb9-7"><a href=""></a>weighted_sat<span class="sc">$</span>ess</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <table class="caption-top">
 <thead>
@@ -590,11 +587,11 @@ Case study: An unanchored MAIC in relapsed/refractory mantle cell lymphoma
 <section id="weight-diagnostics" class="slide level2">
 <h2>Weight diagnostics</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="" aria-label="1"></a><span class="fu">plot_weights_ggplot</span>(weighted_sat,</span>
-<span id="cb10-2"><a href="" aria-label="2"></a>  <span class="at">bin_col =</span> <span class="st">"#4d8dc9"</span>, <span class="at">vline_col =</span> <span class="st">"#FF6600"</span>,</span>
-<span id="cb10-3"><a href="" aria-label="3"></a>  <span class="at">main_title =</span> <span class="fu">c</span>(<span class="st">"Scaled Individual Weights"</span>, <span class="st">"Unscaled Individual Weights"</span>),</span>
-<span id="cb10-4"><a href="" aria-label="4"></a>  <span class="at">bins =</span> <span class="dv">30</span></span>
-<span id="cb10-5"><a href="" aria-label="5"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a><span class="fu">plot_weights_ggplot</span>(weighted_sat,</span>
+<span id="cb10-2"><a href=""></a>  <span class="at">bin_col =</span> <span class="st">"#4d8dc9"</span>, <span class="at">vline_col =</span> <span class="st">"#FF6600"</span>,</span>
+<span id="cb10-3"><a href=""></a>  <span class="at">main_title =</span> <span class="fu">c</span>(<span class="st">"Scaled Individual Weights"</span>, <span class="st">"Unscaled Individual Weights"</span>),</span>
+<span id="cb10-4"><a href=""></a>  <span class="at">bins =</span> <span class="dv">30</span></span>
+<span id="cb10-5"><a href=""></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -726,11 +723,11 @@ Case study: An unanchored MAIC in relapsed/refractory mantle cell lymphoma
 <section id="survival-endpoints-pfs-and-os" class="slide level2">
 <h2>Survival endpoints: PFS and OS</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="" aria-label="1"></a>result_pfs <span class="ot">&lt;-</span> <span class="fu">maic_unanchored</span>(</span>
-<span id="cb11-2"><a href="" aria-label="2"></a>  <span class="at">weights_object =</span> weighted_sat, <span class="at">ipd =</span> adtte_pfs, <span class="at">pseudo_ipd =</span> pseudo_ipd_pfs,</span>
-<span id="cb11-3"><a href="" aria-label="3"></a>  <span class="at">trt_ipd =</span> <span class="st">"Intervention"</span>, <span class="at">trt_agd =</span> <span class="st">"Comparator"</span>, <span class="at">normalize_weight =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb11-4"><a href="" aria-label="4"></a>  <span class="at">endpoint_type =</span> <span class="st">"tte"</span>, <span class="at">eff_measure =</span> <span class="st">"HR"</span>, <span class="at">time_scale =</span> <span class="st">"month"</span></span>
-<span id="cb11-5"><a href="" aria-label="5"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a>result_pfs <span class="ot">&lt;-</span> <span class="fu">maic_unanchored</span>(</span>
+<span id="cb11-2"><a href=""></a>  <span class="at">weights_object =</span> weighted_sat, <span class="at">ipd =</span> adtte_pfs, <span class="at">pseudo_ipd =</span> pseudo_ipd_pfs,</span>
+<span id="cb11-3"><a href=""></a>  <span class="at">trt_ipd =</span> <span class="st">"Intervention"</span>, <span class="at">trt_agd =</span> <span class="st">"Comparator"</span>, <span class="at">normalize_weight =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb11-4"><a href=""></a>  <span class="at">endpoint_type =</span> <span class="st">"tte"</span>, <span class="at">eff_measure =</span> <span class="st">"HR"</span>, <span class="at">time_scale =</span> <span class="st">"month"</span></span>
+<span id="cb11-5"><a href=""></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <table class="caption-top">
 <colgroup>
@@ -773,11 +770,11 @@ Case study: An unanchored MAIC in relapsed/refractory mantle cell lymphoma
 <section id="pfs-kaplan-meier-curves" class="slide level2">
 <h2>PFS Kaplan-Meier curves</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="" aria-label="1"></a><span class="fu">kmplot2</span>(</span>
-<span id="cb12-2"><a href="" aria-label="2"></a>  <span class="at">weights_object =</span> weighted_sat, <span class="at">tte_ipd =</span> adtte_pfs, <span class="at">tte_pseudo_ipd =</span> pseudo_ipd_pfs,</span>
-<span id="cb12-3"><a href="" aria-label="3"></a>  <span class="at">trt_ipd =</span> <span class="st">"Intervention"</span>, <span class="at">trt_agd =</span> <span class="st">"Comparator"</span>, <span class="at">normalize_weights =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb12-4"><a href="" aria-label="4"></a>  <span class="at">endpoint_name =</span> <span class="st">"Progression-free Survival"</span>, <span class="at">time_scale =</span> <span class="st">"month"</span>, <span class="at">censor =</span> <span class="cn">TRUE</span></span>
-<span id="cb12-5"><a href="" aria-label="5"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href=""></a><span class="fu">kmplot2</span>(</span>
+<span id="cb12-2"><a href=""></a>  <span class="at">weights_object =</span> weighted_sat, <span class="at">tte_ipd =</span> adtte_pfs, <span class="at">tte_pseudo_ipd =</span> pseudo_ipd_pfs,</span>
+<span id="cb12-3"><a href=""></a>  <span class="at">trt_ipd =</span> <span class="st">"Intervention"</span>, <span class="at">trt_agd =</span> <span class="st">"Comparator"</span>, <span class="at">normalize_weights =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb12-4"><a href=""></a>  <span class="at">endpoint_name =</span> <span class="st">"Progression-free Survival"</span>, <span class="at">time_scale =</span> <span class="st">"month"</span>, <span class="at">censor =</span> <span class="cn">TRUE</span></span>
+<span id="cb12-5"><a href=""></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -855,10 +852,10 @@ maic-batch-with-log.R → batch runner with logrx audit logs</code></pre>
 <h2>Environment management with <code>renv</code></h2>
 <p><code>logrx</code> records <em>which</em> package versions ran; it doesn’t guarantee those exact versions can be reinstalled later. <strong><code>renv</code></strong> closes that gap with a project-local library and lockfile:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="" aria-label="1"></a>renv<span class="sc">::</span><span class="fu">init</span>()      <span class="co"># creates renv/ + .Rprofile; project gets its own library</span></span>
-<span id="cb14-2"><a href="" aria-label="2"></a><span class="co"># ... install/update packages as usual (install.packages(), etc.) ...</span></span>
-<span id="cb14-3"><a href="" aria-label="3"></a>renv<span class="sc">::</span><span class="fu">snapshot</span>()  <span class="co"># records exact package + version graph into renv.lock</span></span>
-<span id="cb14-4"><a href="" aria-label="4"></a>renv<span class="sc">::</span><span class="fu">restore</span>()   <span class="co"># on another machine/CI: recreates the identical library</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href=""></a>renv<span class="sc">::</span><span class="fu">init</span>()      <span class="co"># creates renv/ + .Rprofile; project gets its own library</span></span>
+<span id="cb14-2"><a href=""></a><span class="co"># ... install/update packages as usual (install.packages(), etc.) ...</span></span>
+<span id="cb14-3"><a href=""></a>renv<span class="sc">::</span><span class="fu">snapshot</span>()  <span class="co"># records exact package + version graph into renv.lock</span></span>
+<span id="cb14-4"><a href=""></a>renv<span class="sc">::</span><span class="fu">restore</span>()   <span class="co"># on another machine/CI: recreates the identical library</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
 <li><code>renv.lock</code> is a JSON file listing every package and exact version used by the project — check it into version control alongside the <code>.R</code> scripts</li>
@@ -888,39 +885,39 @@ maic-batch-with-log.R → batch runner with logrx audit logs</code></pre>
 <h2>RTF reporting with <code>officer</code> + <code>flextable</code></h2>
 <p>Every table script builds a <code>flextable</code>, then wraps it with a study-standard header/footer via <code>officer::block_list()</code> before writing to RTF:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="" aria-label="1"></a>table1 <span class="ot">&lt;-</span> base_table <span class="sc">|&gt;</span></span>
-<span id="cb15-2"><a href="" aria-label="2"></a>  <span class="fu">flextable</span>() <span class="sc">|&gt;</span></span>
-<span id="cb15-3"><a href="" aria-label="3"></a>  <span class="fu">set_header_labels</span>(<span class="at">label =</span> <span class="st">" "</span>,</span>
-<span id="cb15-4"><a href="" aria-label="4"></a>    <span class="at">internal_trial =</span> <span class="fu">paste0</span>(intervention_header, <span class="st">" </span><span class="sc">\n</span><span class="st"> N="</span>, <span class="fu">nrow</span>(ipd), <span class="st">" </span><span class="sc">\n</span><span class="st"> n (%)"</span>),</span>
-<span id="cb15-5"><a href="" aria-label="5"></a>    <span class="at">external_trial =</span> <span class="fu">paste0</span>(comparator_header, <span class="st">" </span><span class="sc">\n</span><span class="st"> N="</span>, comparator_total, <span class="st">" </span><span class="sc">\n</span><span class="st"> n (%)"</span>),</span>
-<span id="cb15-6"><a href="" aria-label="6"></a>    <span class="at">pval1 =</span> <span class="st">"p-value"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb15-7"><a href="" aria-label="7"></a>  <span class="fu">add_header_row</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">" "</span>, <span class="st">"Without adjustment"</span>, <span class="st">"After adjustment"</span>),</span>
-<span id="cb15-8"><a href="" aria-label="8"></a>                  <span class="at">colwidths =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">3</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb15-9"><a href="" aria-label="9"></a>  <span class="fu">autofit</span>() <span class="sc">|&gt;</span></span>
-<span id="cb15-10"><a href="" aria-label="10"></a>  <span class="fu">align</span>(<span class="at">j =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">7</span>, <span class="at">align =</span> <span class="st">"center"</span>, <span class="at">part =</span> <span class="st">"all"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href=""></a>table1 <span class="ot">&lt;-</span> base_table <span class="sc">|&gt;</span></span>
+<span id="cb15-2"><a href=""></a>  <span class="fu">flextable</span>() <span class="sc">|&gt;</span></span>
+<span id="cb15-3"><a href=""></a>  <span class="fu">set_header_labels</span>(<span class="at">label =</span> <span class="st">" "</span>,</span>
+<span id="cb15-4"><a href=""></a>    <span class="at">internal_trial =</span> <span class="fu">paste0</span>(intervention_header, <span class="st">" </span><span class="sc">\n</span><span class="st"> N="</span>, <span class="fu">nrow</span>(ipd), <span class="st">" </span><span class="sc">\n</span><span class="st"> n (%)"</span>),</span>
+<span id="cb15-5"><a href=""></a>    <span class="at">external_trial =</span> <span class="fu">paste0</span>(comparator_header, <span class="st">" </span><span class="sc">\n</span><span class="st"> N="</span>, comparator_total, <span class="st">" </span><span class="sc">\n</span><span class="st"> n (%)"</span>),</span>
+<span id="cb15-6"><a href=""></a>    <span class="at">pval1 =</span> <span class="st">"p-value"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb15-7"><a href=""></a>  <span class="fu">add_header_row</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">" "</span>, <span class="st">"Without adjustment"</span>, <span class="st">"After adjustment"</span>),</span>
+<span id="cb15-8"><a href=""></a>                  <span class="at">colwidths =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">3</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb15-9"><a href=""></a>  <span class="fu">autofit</span>() <span class="sc">|&gt;</span></span>
+<span id="cb15-10"><a href=""></a>  <span class="fu">align</span>(<span class="at">j =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">7</span>, <span class="at">align =</span> <span class="st">"center"</span>, <span class="at">part =</span> <span class="st">"all"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="" aria-label="1"></a>header_default <span class="ot">&lt;-</span> <span class="fu">block_list</span>(</span>
-<span id="cb16-2"><a href="" aria-label="2"></a>  <span class="fu">fpar</span>(<span class="fu">ftext</span>(headL1, <span class="fu">fp_text</span>(<span class="at">font.size =</span> <span class="dv">9</span>))),                 <span class="co"># sponsor name</span></span>
-<span id="cb16-3"><a href="" aria-label="3"></a>  <span class="fu">fpar</span>(<span class="fu">ftext</span>(headL2, <span class="fu">fp_text</span>(<span class="at">font.size =</span> <span class="dv">9</span>)),</span>
-<span id="cb16-4"><a href="" aria-label="4"></a>       <span class="fu">ftext</span>(<span class="st">"Page "</span>, <span class="fu">fp_text</span>(<span class="at">font.size =</span> <span class="dv">9</span>)), <span class="fu">run_word_field</span>(<span class="at">field =</span> <span class="st">"PAGE"</span>),</span>
-<span id="cb16-5"><a href="" aria-label="5"></a>       <span class="fu">ftext</span>(<span class="st">" of "</span>, <span class="fu">fp_text</span>(<span class="at">font.size =</span> <span class="dv">9</span>)), <span class="fu">run_word_field</span>(<span class="at">field =</span> <span class="st">"NUMPAGES"</span>)),</span>
-<span id="cb16-6"><a href="" aria-label="6"></a>  <span class="fu">fpar</span>(<span class="fu">ftext</span>(<span class="st">"Table 1. Baseline characteristics ..."</span>, <span class="fu">fp_text</span>(<span class="at">font.size =</span> <span class="dv">9</span>)))</span>
-<span id="cb16-7"><a href="" aria-label="7"></a>)</span>
-<span id="cb16-8"><a href="" aria-label="8"></a></span>
-<span id="cb16-9"><a href="" aria-label="9"></a>footer_default <span class="ot">&lt;-</span> <span class="fu">block_list</span>(</span>
-<span id="cb16-10"><a href="" aria-label="10"></a>  <span class="fu">fpar</span>(<span class="fu">ftext</span>(<span class="fu">paste0</span>(<span class="st">"Note: ESS after adjustment is "</span>, <span class="fu">round</span>(weighted_sat<span class="sc">$</span>ess, <span class="dv">2</span>), <span class="st">"."</span>),</span>
-<span id="cb16-11"><a href="" aria-label="11"></a>             <span class="fu">fp_text</span>(<span class="at">font.size =</span> <span class="dv">9</span>))),</span>
-<span id="cb16-12"><a href="" aria-label="12"></a>  <span class="fu">fpar</span>(<span class="fu">ftext</span>(<span class="fu">paste0</span>(<span class="st">"Program Name: "</span>, program), <span class="fu">fp_text</span>(<span class="at">font.size =</span> <span class="dv">9</span>)),</span>
-<span id="cb16-13"><a href="" aria-label="13"></a>       <span class="fu">ftext</span>(R.version.string, <span class="fu">fp_text</span>(<span class="at">font.size =</span> <span class="dv">9</span>)))</span>
-<span id="cb16-14"><a href="" aria-label="14"></a>)</span>
-<span id="cb16-15"><a href="" aria-label="15"></a></span>
-<span id="cb16-16"><a href="" aria-label="16"></a>sect_properties <span class="ot">&lt;-</span> <span class="fu">prop_section</span>(</span>
-<span id="cb16-17"><a href="" aria-label="17"></a>  <span class="fu">page_size</span>(<span class="at">orient =</span> <span class="st">"landscape"</span>),</span>
-<span id="cb16-18"><a href="" aria-label="18"></a>  <span class="at">header_default =</span> header_default, <span class="at">footer_default =</span> footer_default</span>
-<span id="cb16-19"><a href="" aria-label="19"></a>)</span>
-<span id="cb16-20"><a href="" aria-label="20"></a></span>
-<span id="cb16-21"><a href="" aria-label="21"></a><span class="fu">save_as_rtf</span>(table1, <span class="at">path =</span> <span class="fu">file.path</span>(path<span class="sc">$</span>outpath, outname), <span class="at">pr_section =</span> sect_properties)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href=""></a>header_default <span class="ot">&lt;-</span> <span class="fu">block_list</span>(</span>
+<span id="cb16-2"><a href=""></a>  <span class="fu">fpar</span>(<span class="fu">ftext</span>(headL1, <span class="fu">fp_text</span>(<span class="at">font.size =</span> <span class="dv">9</span>))),                 <span class="co"># sponsor name</span></span>
+<span id="cb16-3"><a href=""></a>  <span class="fu">fpar</span>(<span class="fu">ftext</span>(headL2, <span class="fu">fp_text</span>(<span class="at">font.size =</span> <span class="dv">9</span>)),</span>
+<span id="cb16-4"><a href=""></a>       <span class="fu">ftext</span>(<span class="st">"Page "</span>, <span class="fu">fp_text</span>(<span class="at">font.size =</span> <span class="dv">9</span>)), <span class="fu">run_word_field</span>(<span class="at">field =</span> <span class="st">"PAGE"</span>),</span>
+<span id="cb16-5"><a href=""></a>       <span class="fu">ftext</span>(<span class="st">" of "</span>, <span class="fu">fp_text</span>(<span class="at">font.size =</span> <span class="dv">9</span>)), <span class="fu">run_word_field</span>(<span class="at">field =</span> <span class="st">"NUMPAGES"</span>)),</span>
+<span id="cb16-6"><a href=""></a>  <span class="fu">fpar</span>(<span class="fu">ftext</span>(<span class="st">"Table 1. Baseline characteristics ..."</span>, <span class="fu">fp_text</span>(<span class="at">font.size =</span> <span class="dv">9</span>)))</span>
+<span id="cb16-7"><a href=""></a>)</span>
+<span id="cb16-8"><a href=""></a></span>
+<span id="cb16-9"><a href=""></a>footer_default <span class="ot">&lt;-</span> <span class="fu">block_list</span>(</span>
+<span id="cb16-10"><a href=""></a>  <span class="fu">fpar</span>(<span class="fu">ftext</span>(<span class="fu">paste0</span>(<span class="st">"Note: ESS after adjustment is "</span>, <span class="fu">round</span>(weighted_sat<span class="sc">$</span>ess, <span class="dv">2</span>), <span class="st">"."</span>),</span>
+<span id="cb16-11"><a href=""></a>             <span class="fu">fp_text</span>(<span class="at">font.size =</span> <span class="dv">9</span>))),</span>
+<span id="cb16-12"><a href=""></a>  <span class="fu">fpar</span>(<span class="fu">ftext</span>(<span class="fu">paste0</span>(<span class="st">"Program Name: "</span>, program), <span class="fu">fp_text</span>(<span class="at">font.size =</span> <span class="dv">9</span>)),</span>
+<span id="cb16-13"><a href=""></a>       <span class="fu">ftext</span>(R.version.string, <span class="fu">fp_text</span>(<span class="at">font.size =</span> <span class="dv">9</span>)))</span>
+<span id="cb16-14"><a href=""></a>)</span>
+<span id="cb16-15"><a href=""></a></span>
+<span id="cb16-16"><a href=""></a>sect_properties <span class="ot">&lt;-</span> <span class="fu">prop_section</span>(</span>
+<span id="cb16-17"><a href=""></a>  <span class="fu">page_size</span>(<span class="at">orient =</span> <span class="st">"landscape"</span>),</span>
+<span id="cb16-18"><a href=""></a>  <span class="at">header_default =</span> header_default, <span class="at">footer_default =</span> footer_default</span>
+<span id="cb16-19"><a href=""></a>)</span>
+<span id="cb16-20"><a href=""></a></span>
+<span id="cb16-21"><a href=""></a><span class="fu">save_as_rtf</span>(table1, <span class="at">path =</span> <span class="fu">file.path</span>(path<span class="sc">$</span>outpath, outname), <span class="at">pr_section =</span> sect_properties)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
 <li><code>set_header_labels()</code> / <code>add_header_row()</code> build the “Without adjustment” vs. “After adjustment” column groups seen in Tables 1–4</li>
@@ -931,15 +928,15 @@ maic-batch-with-log.R → batch runner with logrx audit logs</code></pre>
 <section id="reproducibility-logging-with-logrx" class="slide level2">
 <h2>Reproducibility logging with <code>logrx</code></h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="" aria-label="1"></a><span class="co"># maic-batch-with-log.R</span></span>
-<span id="cb17-2"><a href="" aria-label="2"></a><span class="fu">options</span>(<span class="at">verbose =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb17-3"><a href="" aria-label="3"></a></span>
-<span id="cb17-4"><a href="" aria-label="4"></a>logrx<span class="sc">::</span><span class="fu">axecute</span>(<span class="st">"maic-t1-baseline.R"</span>)  <span class="co"># Table 1: baseline characteristics</span></span>
-<span id="cb17-5"><a href="" aria-label="5"></a>logrx<span class="sc">::</span><span class="fu">axecute</span>(<span class="st">"maic-t2-binary.R"</span>)    <span class="co"># Table 2: ORR/CRR</span></span>
-<span id="cb17-6"><a href="" aria-label="6"></a>logrx<span class="sc">::</span><span class="fu">axecute</span>(<span class="st">"maic-t3-survival.R"</span>)  <span class="co"># Table 3: PFS/OS (HR)</span></span>
-<span id="cb17-7"><a href="" aria-label="7"></a>logrx<span class="sc">::</span><span class="fu">axecute</span>(<span class="st">"maic-f1-km-pfs.R"</span>)    <span class="co"># Figure 1: PFS KM plot</span></span>
-<span id="cb17-8"><a href="" aria-label="8"></a>logrx<span class="sc">::</span><span class="fu">axecute</span>(<span class="st">"maic-f2-km-os.R"</span>)     <span class="co"># Figure 2: OS KM plot</span></span>
-<span id="cb17-9"><a href="" aria-label="9"></a>logrx<span class="sc">::</span><span class="fu">axecute</span>(<span class="st">"maic-t4-ae.R"</span>)        <span class="co"># Table 4: adverse events</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href=""></a><span class="co"># maic-batch-with-log.R</span></span>
+<span id="cb17-2"><a href=""></a><span class="fu">options</span>(<span class="at">verbose =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb17-3"><a href=""></a></span>
+<span id="cb17-4"><a href=""></a>logrx<span class="sc">::</span><span class="fu">axecute</span>(<span class="st">"maic-t1-baseline.R"</span>)  <span class="co"># Table 1: baseline characteristics</span></span>
+<span id="cb17-5"><a href=""></a>logrx<span class="sc">::</span><span class="fu">axecute</span>(<span class="st">"maic-t2-binary.R"</span>)    <span class="co"># Table 2: ORR/CRR</span></span>
+<span id="cb17-6"><a href=""></a>logrx<span class="sc">::</span><span class="fu">axecute</span>(<span class="st">"maic-t3-survival.R"</span>)  <span class="co"># Table 3: PFS/OS (HR)</span></span>
+<span id="cb17-7"><a href=""></a>logrx<span class="sc">::</span><span class="fu">axecute</span>(<span class="st">"maic-f1-km-pfs.R"</span>)    <span class="co"># Figure 1: PFS KM plot</span></span>
+<span id="cb17-8"><a href=""></a>logrx<span class="sc">::</span><span class="fu">axecute</span>(<span class="st">"maic-f2-km-os.R"</span>)     <span class="co"># Figure 2: OS KM plot</span></span>
+<span id="cb17-9"><a href=""></a>logrx<span class="sc">::</span><span class="fu">axecute</span>(<span class="st">"maic-t4-ae.R"</span>)        <span class="co"># Table 4: adverse events</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><code>logrx::axecute()</code> runs a script and writes a companion <code>&lt;script&gt;.log</code> file (here <code>maic-t1-baseline.log</code>, ~40 KB) capturing:</p>
 <table class="caption-top">

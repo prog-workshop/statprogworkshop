@@ -2,7 +2,7 @@
 title: "MAIC analysis using {maicplus}"
 subtitle: "R programming for case study"
 author: Tao Xiang
-date: 2026-08-07
+date: 2026-08-14
 format: 
   revealjs:
     theme: [default, title-style.scss]

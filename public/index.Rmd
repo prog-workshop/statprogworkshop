@@ -40,7 +40,7 @@ pre {
 
 | Topics                                                                                 | Lecturer  | Date       |
 |----------------------------------|-------------------|-------------------|
-| [MAIC analysis using {maicplus}](MAIC_R/maicplus-intro.html) | Tao Xiang | 2026-08-07 |
+| [MAIC analysis using {maicplus}](MAIC_R/maicplus-intro.html) | Sichen Li & Tao Xiang | 2026-08-14 |
 | [Clinical Reports with R II](Clinical_Report_with_R_2/Clinical_Report_with_R_2.html) | Tao Xiang | 2026-01-23 |
 
 
