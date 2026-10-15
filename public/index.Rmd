@@ -61,7 +61,7 @@ pre {
 | SAS Macro for comparing RTF                                                                                                                                               | Sachiel Li    | 2024-05-09 |
 | SAS Macro for comparing RTF Updated                                                                                                                                       | Sachiel Li    | 2024-05-23 |
 | [Define by P21](https://innocarepharma-my.sharepoint.cn/:p:/g/personal/tao_xiang_innocarepharma_com/Ea0UYCBFN1hErDALSGGwp3QBr3AujmroIZySXj4oZw9o-A?e=T8hUgr)              | Rolland Luo   | 2024-06-05 |
-| [AE Narrative Tools Sharing](https://innocarepharma-my.sharepoint.cn/:p:/g/personal/tao_xiang_innocarepharma_com/EY0jf3L9L8hDtjK8Y_ajoBkB-cEvgJGW24fiUoWLX7rz1g?e=r7pmdw) | Junjie Lang   | 2024-06-12 |
+| [AE Narrative Tools Sharing](https://innocarepharma-my.sharepoint.cn/:p:/g/personal/tao_xiang_innocarepharma_com/IQBtZCSXFburS4BU6AG7KsJ8AdX6_IYTDMSXfk-jtkWieMg?e=LTVmnW) | Junjie Lang   | 2024-06-12 |
 | [Clinical Reports with R](Clinical%20Report%20with%20R/Clinical_Report_With_R.html)                                                                                       | Tao Xiang     | 2024-07-26 |
 | Figure Library - Spider Plot                                                                                                                                              | Jie Wang      | 2024-08-30 |
 
